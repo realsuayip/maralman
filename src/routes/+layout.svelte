@@ -1,17 +1,18 @@
 <script>
 	import { navigating } from '$app/stores';
-	export let data;
-
 	import './styles.css';
+	import Footer from '$lib/components/Footer.svelte';
 </script>
 
 <div class="app">
-	<main>
-		<pre>{JSON.stringify(data, undefined, 4)}</pre>
+	<main class="center">
 		{#if $navigating}
-			just a minute..
+			<div class="subject">
+				<strong>Just a minute...</strong>
+			</div>
 		{:else}
 			<slot />
 		{/if}
 	</main>
+	<Footer />
 </div>
