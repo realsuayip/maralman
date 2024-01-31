@@ -124,7 +124,7 @@ class Session {
 			const accessToken = ident['access_token'];
 			const { ok, status, content } = await getAuthenticatedUser(accessToken);
 			if (ok) {
-				return { ...content, is_authenticated: true, auth: ident };
+				return { ...content, is_authenticated: true };
 			} else if (status === 401) {
 				const { ok } = await this.rotate();
 				if (ok) {

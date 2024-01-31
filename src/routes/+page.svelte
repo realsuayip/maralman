@@ -9,5 +9,5 @@
 <div class="subject">
 	<pre style="overflow: scroll">{JSON.stringify(data.user, undefined, 4)}</pre>
 	<a href="/login" class="btn btn-primary">Sign in</a>
-	<a href="/register" class="btn secondary btn-primary muted">Create a new accoutn</a>
+	<a href="/register" class="btn secondary btn-primary muted">Create a new account</a>
 </div>
