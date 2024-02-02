@@ -8,7 +8,9 @@
 
 :root {
 	--background: #0d1117;
-	--foreground: #c9d1d9;
+	--foreground: rgba(201, 209, 217, 1);
+	--foreground-muted: rgba(201, 209, 217, 0.5);
+	--foreground-secondary: rgba(201, 209, 217, 0.75);
 	--background-accent: #161b22;
 	--border-accent: #21262d;
 	--input-border: #30363d;
@@ -19,7 +21,9 @@
 @media (prefers-color-scheme: light) {
 	:root {
 		--background: #ffffff;
-		--foreground: #24292f;
+		--foreground: rgba(36, 41, 47, 1);
+		--foreground-muted: rgba(36, 41, 47, 0.5);
+		--foreground-secondary: rgba(36, 41, 47, 0.5);
 		--background-accent: #f9f9f9;
 		--border-accent: #dedede;
 		--input-border: #d0d7de;
@@ -351,6 +355,14 @@ a {
 
 .text-danger {
 	color: rgba(248, 81, 73);
+}
+
+.text-muted {
+	color: var(--foreground-muted);
+}
+
+.text-secondary {
+	color: var(--foreground-secondary);
 }
 
 .text-overflow {
