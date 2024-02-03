@@ -1,0 +1,55 @@
+<script>
+	import { fly } from 'svelte/transition';
+
+	export let setStep;
+</script>
+
+<div class="subject" in:fly={{ x: 300 }}>
+	<h3 class="m-0">Personal information</h3>
+	<p>The following information will not be visible in your profile by default.</p>
+
+	<div class="input-group">
+		<label for="birth_date">Birth date</label>
+		<input type="date" name="birth_date" id="birth_date" required />
+	</div>
+
+	<div class="input-group">
+		<label for="gender">Gender</label>
+		<select name="gender" id="gender">
+			<option value="unspecified" selected>Unspecified</option>
+			<option value="male">Male</option>
+			<option value="female">Female</option>
+			<option value="other">Other</option>
+		</select>
+	</div>
+
+	<div class="input-group">
+		<label for="language">Language</label>
+		<select name="language" id="language">
+			<option value="en" selected>English</option>
+			<option value="tr">Turkish</option>
+		</select>
+	</div>
+
+	<div>
+		<input type="checkbox" name="understand" id="understand" required />
+		<label for="understand">
+			<small>
+				I have read and agreed to the
+				<a target="_blank" href="/terms">Terms</a> and
+				<a target="_blank" href="/terms">Privacy Policy</a> statements.
+			</small>
+		</label>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Register</button>
+	<button
+		type="button"
+		class="btn secondary muted"
+		on:click={() => {
+			setStep('password');
+		}}
+	>
+		Back
+	</button>
+</div>
