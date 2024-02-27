@@ -1,4 +1,4 @@
-export const trailingSlash = 'always';
+export const trailingSlash = "always";
 export const load = async ({ data }) => {
-	return data;
+  return data;
 };

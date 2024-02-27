@@ -1,55 +1,62 @@
 <script>
-	import { fly } from 'svelte/transition';
+  import { fly } from "svelte/transition";
 
-	export let setStep, fields;
+  export let setStep, fields;
 </script>
 
 <div class="subject" in:fly={{ x: 300 }}>
-	<h3 class="m-0">Personal information</h3>
-	<p>The following information will not be visible in your profile by default.</p>
+  <h3 class="m-0">Personal information</h3>
+  <p>
+    The following information will not be visible in your profile by default.
+  </p>
 
-	<div class="input-group">
-		<label for="birth_date">Birth date</label>
-		<input bind:value={$fields.birth_date} type="date" id="birth_date" required />
-	</div>
+  <div class="input-group">
+    <label for="birth_date">Birth date</label>
+    <input
+      bind:value={$fields.birth_date}
+      type="date"
+      id="birth_date"
+      required
+    />
+  </div>
 
-	<div class="input-group">
-		<label for="gender">Gender</label>
-		<select bind:value={$fields.gender} id="gender">
-			<option value="unspecified" selected>Unspecified</option>
-			<option value="male">Male</option>
-			<option value="female">Female</option>
-			<option value="other">Other</option>
-		</select>
-	</div>
+  <div class="input-group">
+    <label for="gender">Gender</label>
+    <select bind:value={$fields.gender} id="gender">
+      <option value="unspecified" selected>Unspecified</option>
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+  </div>
 
-	<div class="input-group">
-		<label for="language">Language</label>
-		<select bind:value={$fields.language} id="language">
-			<option value="en" selected>English</option>
-			<option value="tr">Turkish</option>
-		</select>
-	</div>
+  <div class="input-group">
+    <label for="language">Language</label>
+    <select bind:value={$fields.language} id="language">
+      <option value="en" selected>English</option>
+      <option value="tr">Turkish</option>
+    </select>
+  </div>
 
-	<div>
-		<input type="checkbox" id="understand" required />
-		<label for="understand">
-			<small>
-				I have read and agreed to the
-				<a target="_blank" href="/terms">Terms</a> and
-				<a target="_blank" href="/terms">Privacy Policy</a> statements.
-			</small>
-		</label>
-	</div>
+  <div>
+    <input type="checkbox" id="understand" required />
+    <label for="understand">
+      <small>
+        I have read and agreed to the
+        <a target="_blank" href="/terms">Terms</a> and
+        <a target="_blank" href="/terms">Privacy Policy</a> statements.
+      </small>
+    </label>
+  </div>
 
-	<button type="submit" class="btn btn-primary">Register</button>
-	<button
-		type="button"
-		class="btn secondary muted"
-		on:click={() => {
-			setStep('password');
-		}}
-	>
-		Back
-	</button>
+  <button type="submit" class="btn btn-primary">Register</button>
+  <button
+    type="button"
+    class="btn secondary muted"
+    on:click={() => {
+      setStep("password");
+    }}
+  >
+    Back
+  </button>
 </div>
