@@ -1,7 +1,7 @@
 <script>
 	import { fly } from 'svelte/transition';
 
-	export let setStep;
+	export let setStep, fields;
 </script>
 
 <div class="subject" in:fly={{ x: 300 }}>
@@ -10,12 +10,12 @@
 
 	<div class="input-group">
 		<label for="birth_date">Birth date</label>
-		<input type="date" name="birth_date" id="birth_date" required />
+		<input bind:value={$fields.birth_date} type="date" id="birth_date" required />
 	</div>
 
 	<div class="input-group">
 		<label for="gender">Gender</label>
-		<select name="gender" id="gender">
+		<select bind:value={$fields.gender} id="gender">
 			<option value="unspecified" selected>Unspecified</option>
 			<option value="male">Male</option>
 			<option value="female">Female</option>
@@ -25,14 +25,14 @@
 
 	<div class="input-group">
 		<label for="language">Language</label>
-		<select name="language" id="language">
+		<select bind:value={$fields.language} id="language">
 			<option value="en" selected>English</option>
 			<option value="tr">Turkish</option>
 		</select>
 	</div>
 
 	<div>
-		<input type="checkbox" name="understand" id="understand" required />
+		<input type="checkbox" id="understand" required />
 		<label for="understand">
 			<small>
 				I have read and agreed to the

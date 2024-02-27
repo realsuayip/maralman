@@ -28,5 +28,15 @@ export const actions = {
 		});
 		const { consent } = await response.json();
 		return { email, consent, step: 'user' };
+	},
+	user: async ({ request }) => {
+		const data = await request.formData();
+		return {
+			email: data.email,
+			consent: data.consent,
+			data: Object.fromEntries(data),
+			step: 'user',
+			errors: {}
+		};
 	}
 };
