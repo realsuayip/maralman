@@ -1,8 +1,7 @@
 <script>
 	import { fly } from 'svelte/transition';
 
-	export let previousStep;
-	export let setStep;
+	export let previousStep, setStep, fields;
 </script>
 
 <div class="subject" in:fly={{ x: previousStep === 'primary' ? 300 : -300 }}>
@@ -13,7 +12,7 @@
 
 	<div class="input-group">
 		<label for="password">Password</label>
-		<input type="password" name="password" id="password" />
+		<input bind:value={$fields.password} type="password" id="password" />
 		<div class="password-help text-secondary">
 			<ul>
 				<li>Your password can’t be too similar to your other personal information.</li>
@@ -26,7 +25,7 @@
 
 	<div class="input-group">
 		<label for="password1">Password (again)</label>
-		<input type="password" name="password1" id="password1" />
+		<input type="password" id="password1" />
 	</div>
 
 	<button
