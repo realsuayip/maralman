@@ -1,7 +1,8 @@
 <script>
   import { fly } from "svelte/transition";
+  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
-  export let setStep, fields;
+  export let setStep, fields, errors;
 </script>
 
 <div class="subject" in:fly={{ x: 300 }}>
@@ -18,6 +19,7 @@
       id="birth_date"
       required
     />
+    <ErrorText of="birth_date" {errors} />
   </div>
 
   <div class="input-group">
@@ -28,6 +30,7 @@
       <option value="female">Female</option>
       <option value="other">Other</option>
     </select>
+    <ErrorText of="gender" {errors} />
   </div>
 
   <div class="input-group">
@@ -36,10 +39,16 @@
       <option value="en" selected>English</option>
       <option value="tr">Turkish</option>
     </select>
+    <ErrorText of="language" {errors} />
   </div>
 
   <div>
-    <input type="checkbox" id="understand" required />
+    <input
+      bind:checked={$fields.understand}
+      type="checkbox"
+      id="understand"
+      required
+    />
     <label for="understand">
       <small>
         I have read and agreed to the

@@ -8,6 +8,7 @@ export class Client {
 
     // Endpoints
     this.registration = new Registration(this);
+    this.users = new User(this);
   }
 
   getURL(endpoint) {
@@ -55,4 +56,12 @@ class Verification extends Endpoint {
 
 class Registration extends Verification {
   type = "registration";
+}
+
+// todo custom Error
+
+class User extends Endpoint {
+  async create(payload) {
+    return await this.client.post("users", payload);
+  }
 }

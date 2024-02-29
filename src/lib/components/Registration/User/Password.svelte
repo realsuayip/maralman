@@ -1,7 +1,8 @@
 <script>
   import { fly } from "svelte/transition";
+  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
-  export let previousStep, setStep, fields;
+  export let previousStep, setStep, fields, errors;
 </script>
 
 <div class="subject" in:fly={{ x: previousStep === "primary" ? 300 : -300 }}>
@@ -14,6 +15,7 @@
   <div class="input-group">
     <label for="password">Password</label>
     <input bind:value={$fields.password} type="password" id="password" />
+    <ErrorText of="password" {errors} />
     <div class="password-help text-secondary">
       <ul>
         <li>

@@ -11,7 +11,7 @@
   <div class="input-group">
     <label for="username">Username</label>
     <input bind:value={$fields.username} type="text" id="username" />
-    <ErrorText of="username" {errors} {fields} />
+    <ErrorText of="username" {errors} />
     <small class="text-secondary">
       This username will be used reach your profile. You can always change your
       username later.
@@ -21,13 +21,17 @@
   <div class="input-group">
     <label for="display_name">Display name</label>
     <input bind:value={$fields.display_name} type="text" id="display_name" />
+    <ErrorText of="display_name" {errors} />
   </div>
 
-  <small class="text-secondary">
-    <strong>{$fields.email}</strong> will be used as your email. If you want to
-    use some other email,
-    <a href="/register">please click here.</a>
-  </small>
+  <div class="input-group">
+    <small class="text-secondary">
+      <strong>{$fields.email}</strong> will be used as your email. If you want
+      to use some other email,
+      <a href="/register">please click here.</a>
+    </small>
+    <ErrorText of="email" {errors} />
+  </div>
 
   <button
     type="button"

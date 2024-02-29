@@ -29,15 +29,23 @@
 
   // If the field with the error gets changed,
   // remove the errors.
+  // todo: make this part a utility function?
   let keys = Object.keys($errors);
+  const initialErrors = { ...$errors };
   if (keys) {
     const initials = {};
-    fields.subscribe(() => {
+    fields.subscribe((values) => {
       for (const key of keys) {
-        if (initials[key]) {
-          $errors[key] = [];
+        const value = values[key];
+        const initial = initials[key];
+        if (initial !== undefined) {
+          if (initial !== value) {
+            $errors[key] = [];
+          } else {
+            $errors[key] = initialErrors[key];
+          }
         } else {
-          initials[key] = true;
+          initials[key] = value;
         }
       }
     });
