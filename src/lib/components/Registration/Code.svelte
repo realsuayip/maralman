@@ -1,5 +1,11 @@
 <script>
-  export let email;
+  import { writable } from "svelte/store";
+  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
+
+  export let form;
+
+  const fields = writable({ email: form?.email });
+  const errors = writable(form?.errors || {});
 </script>
 
 <header>
@@ -11,7 +17,7 @@
     Please enter the six-digit confirmation code we just sent you via the
     following email:
   </p>
-  <strong style="font-size: 2rem">{email}</strong>
+  <strong style="font-size: 2rem">{$fields.email}</strong>
   <small><a target="_self" href="/register">Use different email</a></small>
   <div class="input-group">
     <label for="code">Code</label>
@@ -19,19 +25,20 @@
       id="code"
       type="number"
       name="code"
-      min="100000"
+      min="9999"
       max="999999"
       required
     />
-    <input type="hidden" name="email" value={email} />
+    <ErrorText of="code" {errors} />
+    <input type="hidden" name="email" value={$fields.email} />
   </div>
   <button type="submit" class="btn btn-primary">Continue</button>
 
   <form method="post" action="?/email">
-    <input type="hidden" name="email" value={email} />
+    <input type="hidden" name="email" value={$fields.email} />
     <!--todo: add alert after doing this-->
-    <button class="btn secondary muted" formaction="?/email"
-      >Resend confirmation code</button
-    >
+    <button class="btn secondary muted" formaction="?/email">
+      Resend confirmation code
+    </button>
   </form>
 </form>

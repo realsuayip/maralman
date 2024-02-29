@@ -32,7 +32,8 @@ async function code({ request, fetch }) {
   const content = await response.json();
 
   if (!response.ok) {
-    return { email, code, step: "code", errors: content };
+    // todo: if response status == 404, do proper error.
+    return { email, step: "code", errors: content.errors };
   }
   return { email, consent: content.consent, step: "user" };
 }
@@ -67,5 +68,5 @@ async function user({ request, fetch, locals }) {
   return redirect(302, "/");
 }
 
-/** @type {import('./$types').Actions} */
+/** @type {import("./$types").Actions} */
 export const actions = { email, code, user };
