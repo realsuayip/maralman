@@ -17,5 +17,5 @@
     <User email={form.email} consent={form.consent} {form} />
   {/if}
 {:else}
-  <Email />
+  <Email {form} />
 {/if}

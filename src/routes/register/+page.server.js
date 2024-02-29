@@ -14,7 +14,7 @@ async function email({ request, fetch }) {
   const content = await response.json();
 
   if (!response.ok) {
-    return { email, step: "email", errors: content };
+    return { email, errors: content.errors };
   }
   return { email: content.email, step: "code" };
 }
