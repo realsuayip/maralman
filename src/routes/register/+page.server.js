@@ -14,7 +14,7 @@ async function email({ request, fetch }) {
   const content = await response.json();
 
   if (!response.ok) {
-    return { email, errors: content.errors };
+    return { email, errors: client.toErrors(content) };
   }
   return { email: content.email, step: "code" };
 }
@@ -32,8 +32,7 @@ async function code({ request, fetch }) {
   const content = await response.json();
 
   if (!response.ok) {
-    // todo: if response status == 404, do proper error.
-    return { email, step: "code", errors: content.errors };
+    return { email, step: "code", errors: client.toErrors(content) };
   }
   return { email, consent: content.consent, step: "user" };
 }

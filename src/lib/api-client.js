@@ -31,6 +31,25 @@ export class Client {
     const options = { method, headers, body };
     return await this.fetch(url, options);
   }
+
+  // todo: add toContent
+  toErrors(content) {
+    const { status, code, message, errors } = content;
+
+    let messages = [message];
+    let fieldErrors = errors || {};
+
+    if (Array.isArray(errors)) {
+      messages = errors;
+      fieldErrors = {};
+    }
+
+    const hasFieldErrors =
+      status === 400 &&
+      code === "invalid" &&
+      Object.keys(fieldErrors).length !== 0;
+    return { status, code, messages, fieldErrors, hasFieldErrors };
+  }
 }
 
 class Endpoint {
@@ -57,8 +76,6 @@ class Verification extends Endpoint {
 class Registration extends Verification {
   type = "registration";
 }
-
-// todo custom Error
 
 class User extends Endpoint {
   async create(payload) {

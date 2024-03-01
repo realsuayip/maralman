@@ -1,17 +1,19 @@
 <script>
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
   import { writable } from "svelte/store";
+  import Alert from "$lib/components/Alert.svelte";
 
   export let form;
 
   const fields = writable({ email: form?.email });
-  const errors = writable(form?.errors || {});
+  const errors = writable(form?.errors?.fieldErrors);
 </script>
 
 <header>
   <h1>Create a new account</h1>
 </header>
 
+<Alert messages={form?.errors?.messages} />
 <form class="subject" method="post" action="?/email">
   <div class="input-group">
     <label for="registration-email">Email address</label>

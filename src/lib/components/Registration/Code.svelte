@@ -1,17 +1,19 @@
 <script>
   import { writable } from "svelte/store";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
+  import Alert from "$lib/components/Alert.svelte";
 
   export let form;
 
   const fields = writable({ email: form?.email });
-  const errors = writable(form?.errors || {});
+  const errors = writable(form?.errors?.fieldErrors);
 </script>
 
 <header>
   <h1>Enter verification code</h1>
 </header>
 
+<Alert messages={form?.errors?.messages} />
 <form class="subject" method="post" action="?/code">
   <p>
     Please enter the six-digit confirmation code we just sent you via the
