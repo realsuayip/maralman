@@ -1,54 +1,43 @@
 <script>
+  import Alert from "$lib/components/Alert.svelte";
   import Primary from "$lib/components/Registration/User/Primary.svelte";
   import Password from "$lib/components/Registration/User/Password.svelte";
   import Personal from "$lib/components/Registration/User/Personal.svelte";
   import { writable } from "svelte/store";
+  import { propagateFieldErrors } from "$lib/forms.js";
 
-  export let consent, email, form;
+  export let form;
 
-  let previousStep;
+  let previousStep, formElement;
   let step = "primary";
 
-  const fields = writable({ email: email, consent: consent, ...form?.data });
-  const errors = writable(form?.errors || {});
-  const names = [
-    "email",
-    "consent",
-    "username",
-    "display_name",
-    "password",
-    "birth_date",
-    "gender",
-    "language",
-  ];
+  const fields = writable({ ...form?.data });
+  const errors = writable(form?.errors?.fieldErrors);
+  propagateFieldErrors(errors, fields);
 
-  function setStep(value) {
-    previousStep = step;
-    step = value;
+  // List of field names, assigned to relevant steps. Used
+  // to render relevant step when errors appear in one of them.
+  const steps = {
+    primary: ["email", "consent", "username", "display_name"],
+    password: ["password", "password1"],
+    personal: ["birth_date", "gender", "language", "understand"],
+  };
+  if ($errors) {
+    const keys = Object.keys($errors);
+    for (const [stepName, fieldNames] of Object.entries(steps)) {
+      if (fieldNames.some((n) => keys.includes(n))) {
+        step = stepName;
+        break;
+      }
+    }
   }
 
-  // If the field with the error gets changed,
-  // remove the errors.
-  // todo: make this part a utility function?
-  let keys = Object.keys($errors);
-  const initialErrors = { ...$errors };
-  if (keys) {
-    const initials = {};
-    fields.subscribe((values) => {
-      for (const key of keys) {
-        const value = values[key];
-        const initial = initials[key];
-        if (initial !== undefined) {
-          if (initial !== value) {
-            $errors[key] = [];
-          } else {
-            $errors[key] = initialErrors[key];
-          }
-        } else {
-          initials[key] = value;
-        }
-      }
-    });
+  function setStep(value, checkValidity = false) {
+    if (checkValidity && !formElement.reportValidity()) {
+      return;
+    }
+    previousStep = step;
+    step = value;
   }
 </script>
 
@@ -56,7 +45,8 @@
   <h1>Complete your registration</h1>
 </header>
 
-<form method="post" action="?/user">
+<Alert messages={form?.errors?.messages} />
+<form method="post" action="?/user" bind:this={formElement}>
   {#if step === "primary"}
     <Primary {setStep} {fields} {errors} />
   {:else if step === "password"}
@@ -65,7 +55,7 @@
     <Personal {setStep} {fields} {errors} />
   {/if}
 
-  {#each names as name}
+  {#each Object.values(steps).flat(1) as name}
     <input type="hidden" {name} value={$fields[name] || ""} />
   {/each}
 </form>

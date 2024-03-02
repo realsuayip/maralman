@@ -24,17 +24,17 @@ async function email({ request, fetch }) {
  * is needed to create a user.
  */
 async function code({ request, fetch }) {
-  const data = await request.formData();
-  const [email, code] = [data.get("email"), data.get("code")];
+  const data = Object.fromEntries(await request.formData());
+  const { email, code } = data;
 
   const client = new Client(fetch);
   const response = await client.registration.check(email, code);
   const content = await response.json();
 
   if (!response.ok) {
-    return { email, step: "code", errors: client.toErrors(content) };
+    return { data, step: "code", errors: client.toErrors(content) };
   }
-  return { email, consent: content.consent, step: "user" };
+  return { data: content, step: "user" };
 }
 
 /**
@@ -50,13 +50,7 @@ async function user({ request, fetch, locals }) {
   const content = await response.json();
 
   if (!response.ok) {
-    return {
-      email: data.email,
-      consent: data.consent,
-      data: Object.fromEntries(data),
-      step: "user",
-      errors: content.errors,
-    };
+    return { data: payload, step: "user", errors: client.toErrors(content) };
   }
 
   // User created, log-in the user and redirect.
