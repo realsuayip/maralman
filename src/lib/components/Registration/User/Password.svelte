@@ -2,7 +2,17 @@
   import { fly } from "svelte/transition";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
+  let confirmation;
   export let previousStep, setStep, fields, errors;
+
+  function checkPasswordMatch() {
+    if ($fields.password !== $fields.password1) {
+      confirmation.setCustomValidity("Passwords did not match.");
+    } else {
+      confirmation.setCustomValidity("");
+    }
+    return true;
+  }
 </script>
 
 <div class="subject" in:fly={{ x: previousStep === "primary" ? 300 : -300 }}>
@@ -14,7 +24,13 @@
 
   <div class="input-group">
     <label for="password">Password</label>
-    <input bind:value={$fields.password} type="password" id="password" />
+    <input
+      bind:value={$fields.password}
+      type="password"
+      id="password"
+      minlength="8"
+      required
+    />
     <ErrorText of="password" {errors} />
     <div class="password-help text-secondary">
       <ul>
@@ -30,14 +46,22 @@
 
   <div class="input-group">
     <label for="password1">Password (again)</label>
-    <input type="password" id="password1" />
+    <input
+      bind:value={$fields.password1}
+      bind:this={confirmation}
+      type="password"
+      id="password1"
+      minlength="8"
+      required
+    />
+    <ErrorText of="password1" {errors} />
   </div>
 
   <button
     type="button"
     class="btn btn-primary"
     on:click={() => {
-      setStep("personal");
+      checkPasswordMatch() && setStep("personal", true);
     }}
   >
     Next

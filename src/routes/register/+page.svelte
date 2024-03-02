@@ -14,7 +14,7 @@
   {#if form.step === "code"}
     <Code {form} />
   {:else if form.step === "user"}
-    <User email={form.email} consent={form.consent} {form} />
+    <User {form} />
   {/if}
 {:else}
   <Email {form} />
