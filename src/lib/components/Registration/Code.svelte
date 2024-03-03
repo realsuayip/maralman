@@ -14,6 +14,10 @@
 </header>
 
 <Alert messages={form?.errors?.messages} />
+{#if form?.resend}
+  <p role="alert" class="banner">A new confirmation code has been sent.</p>
+{/if}
+
 <form class="subject" method="post" action="?/code">
   <p>
     Please enter the six-digit confirmation code we just sent you via the
@@ -38,7 +42,7 @@
 
   <form method="post" action="?/email">
     <input type="hidden" name="email" value={$fields.email} />
-    <!--todo: add alert after doing this-->
+    <input type="hidden" name="resend" value="true" />
     <button class="btn secondary muted" formaction="?/email">
       Resend confirmation code
     </button>

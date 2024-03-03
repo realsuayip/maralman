@@ -8,6 +8,7 @@ import { redirect } from "@sveltejs/kit";
 async function email({ request, fetch }) {
   const data = await request.formData();
   const email = data.get("email");
+  const resend = !!data.get("resend");
 
   const client = new Client(fetch);
   const response = await client.registration.send(email);
@@ -16,7 +17,7 @@ async function email({ request, fetch }) {
   if (!response.ok) {
     return { email, errors: client.toErrors(content) };
   }
-  return { email: content.email, step: "code" };
+  return { email: content.email, step: "code", resend };
 }
 
 /**
@@ -32,7 +33,7 @@ async function code({ request, fetch }) {
   const content = await response.json();
 
   if (!response.ok) {
-    return { data, step: "code", errors: client.toErrors(content) };
+    return { email, step: "code", errors: client.toErrors(content) };
   }
   return { data: content, step: "user" };
 }
