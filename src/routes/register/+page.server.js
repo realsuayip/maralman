@@ -1,5 +1,5 @@
 import { Client } from "$lib/api-client.js";
-import { redirect } from "@sveltejs/kit";
+import { redirect, fail } from "@sveltejs/kit";
 
 /**
  * Sends a confirmation code to given email. This code
@@ -15,7 +15,7 @@ async function email({ request, fetch }) {
   const content = await response.json();
 
   if (!response.ok) {
-    return { email, errors: client.toErrors(content) };
+    return fail(400, { email, errors: client.toErrors(content) });
   }
   return { email: content.email, step: "code", resend };
 }
@@ -33,7 +33,7 @@ async function code({ request, fetch }) {
   const content = await response.json();
 
   if (!response.ok) {
-    return { email, step: "code", errors: client.toErrors(content) };
+    return fail(400, { email, step: "code", errors: client.toErrors(content) });
   }
   return { data: content, step: "user" };
 }
@@ -44,14 +44,18 @@ async function code({ request, fetch }) {
  */
 async function user({ request, fetch, locals }) {
   const data = await request.formData();
-  const client = new Client(fetch);
-
   const payload = Object.fromEntries(data);
+
+  const client = new Client(fetch);
   const response = await client.users.create(payload);
   const content = await response.json();
 
   if (!response.ok) {
-    return { data: payload, step: "user", errors: client.toErrors(content) };
+    return fail(400, {
+      data: payload,
+      step: "user",
+      errors: client.toErrors(content),
+    });
   }
 
   // User created, log-in the user and redirect.
