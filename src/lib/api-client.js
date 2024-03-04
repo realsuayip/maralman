@@ -1,6 +1,12 @@
 const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL;
 const CLIENT_CREDENTIALS_TOKEN = process.env.CLIENT_CREDENTIALS_TOKEN;
 
+const GenericError = {
+  status: 500,
+  code: "server_error",
+  message: ["We could not handle your request. Please try again later."],
+};
+
 export class Client {
   constructor(fetch, token) {
     this.fetch = fetch;
@@ -29,10 +35,42 @@ export class Client {
     const headers = this.getHeaders();
     const body = JSON.stringify(payload);
     const options = { method, headers, body };
-    return await this.fetch(url, options);
+    return this.toResponse(url, options);
   }
 
-  // todo: add toContent
+  async toResponse(url, options) {
+    // This is some naive implementation that handles network
+    // errors and JSON parsing errors. Returns some sane defaults
+    // in either case.
+    return await this.fetch(url, options)
+      .then((response) =>
+        response
+          .json()
+          .then((content) => {
+            if (response.ok) {
+              return { response, content };
+            }
+            return { response, content, errors: this.toErrors(content) };
+          })
+          .catch((error) => {
+            console.log(error);
+            return {
+              response,
+              content: GenericError,
+              errors: this.toErrors(GenericError),
+            };
+          }),
+      )
+      .catch((error) => {
+        console.log(error);
+        return {
+          response: { ok: false },
+          content: GenericError,
+          errors: this.toErrors(GenericError),
+        };
+      });
+  }
+
   toErrors(content) {
     const { status, code, message, errors } = content;
 

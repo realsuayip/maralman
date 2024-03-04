@@ -11,11 +11,10 @@ async function email({ request, fetch }) {
   const resend = !!data.get("resend");
 
   const client = new Client(fetch);
-  const response = await client.registration.send(email);
-  const content = await response.json();
+  const { response, content, errors } = await client.registration.send(email);
 
   if (!response.ok) {
-    return fail(400, { email, errors: client.toErrors(content) });
+    return fail(400, { email, errors });
   }
   return { email: content.email, step: "code", resend };
 }
@@ -29,11 +28,13 @@ async function code({ request, fetch }) {
   const { email, code } = data;
 
   const client = new Client(fetch);
-  const response = await client.registration.check(email, code);
-  const content = await response.json();
+  const { response, content, errors } = await client.registration.check(
+    email,
+    code,
+  );
 
   if (!response.ok) {
-    return fail(400, { email, step: "code", errors: client.toErrors(content) });
+    return fail(400, { email, step: "code", errors });
   }
   return { data: content, step: "user" };
 }
@@ -47,15 +48,10 @@ async function user({ request, fetch, locals }) {
   const payload = Object.fromEntries(data);
 
   const client = new Client(fetch);
-  const response = await client.users.create(payload);
-  const content = await response.json();
+  const { response, content, errors } = await client.users.create(payload);
 
   if (!response.ok) {
-    return fail(400, {
-      data: payload,
-      step: "user",
-      errors: client.toErrors(content),
-    });
+    return fail(400, { data: payload, step: "user", errors });
   }
 
   // User created, log-in the user and redirect.
