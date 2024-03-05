@@ -47,10 +47,6 @@ body {
   font-size: 1.4rem;
   background: var(--background);
   color: var(--foreground);
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
 }
 
 hr {
@@ -403,4 +399,11 @@ a {
 
 .m-0 {
   margin: 0;
+}
+
+div.focus {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }

@@ -2,17 +2,30 @@
   import { navigating } from "$app/stores";
   import "./styles.css";
   import Footer from "$lib/components/Footer.svelte";
+  import { page } from "$app/stores";
+  import { matchRoute } from "$lib/routes.js";
 </script>
 
-<div class="app">
-  <main class="center">
-    {#if $navigating}
-      <div class="subject">
-        <strong>Just a minute...</strong>
-      </div>
-    {:else}
+{#if matchRoute($page.route, "auth") || !$page.data.user.is_authenticated}
+  <div class="app focus">
+    <div>
+      <main class="center">
+        {#if $navigating}
+          <div class="subject">
+            <strong>Just a minute...</strong>
+          </div>
+        {:else}
+          <slot />
+        {/if}
+      </main>
+      <Footer />
+    </div>
+  </div>
+{:else if $page.data.user.is_authenticated}
+  <div class="app">
+    <main>
       <slot />
-    {/if}
-  </main>
-  <Footer />
-</div>
+    </main>
+    <Footer />
+  </div>
+{/if}
