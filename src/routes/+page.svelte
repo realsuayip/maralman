@@ -8,6 +8,9 @@
 
 {#if $page.data.user.is_authenticated}
   <pre>{JSON.stringify($page.data.user, undefined, 4)}</pre>
+  <form action="/logout" method="POST">
+    <button class="btn secondary">Log out</button>
+  </form>
 {:else}
   <header>
     <h1>Sign in</h1>

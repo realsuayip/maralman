@@ -104,10 +104,16 @@ class Session {
 
   commit() {
     if (Object.keys(this.data).length === 0) {
+      this.cookies.delete(AUTH_SESSION_COOKIE, { path: "/" });
       return;
     }
     const contents = aes.encrypt(JSON.stringify(this.data));
     this.cookies.set(AUTH_SESSION_COOKIE, contents, { path: "/" });
+  }
+
+  logout() {
+    this.delete("verifier");
+    this.delete("ident");
   }
 
   async rotate() {
