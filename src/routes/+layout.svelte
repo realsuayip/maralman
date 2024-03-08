@@ -92,7 +92,7 @@
 
   .auth > .content > main {
     flex-basis: 760px;
-    padding: 1rem 5vh;
+    padding: 1rem 3.5rem;
   }
 
   .auth > .content > aside {
