@@ -5,6 +5,7 @@
   import { page } from "$app/stores";
   import { matchRoute } from "$lib/routes.js";
   import { Home24, Inbox24 } from "svelte-octicons";
+  import UserPill from "$lib/components/UserPill.svelte";
 </script>
 
 {#if matchRoute($page.route, "auth") || !$page.data.user.is_authenticated}
@@ -39,6 +40,7 @@
         <slot />
       </main>
       <aside>
+        <UserPill user={$page.data.user} />
         <Footer />
       </aside>
     </div>
@@ -92,6 +94,8 @@
 
   .auth > .content > main {
     flex-basis: 760px;
+    max-width: 760px;
+    overflow: scroll;
     padding: 1rem 3.5rem;
   }
 
