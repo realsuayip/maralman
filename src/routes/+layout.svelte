@@ -6,9 +6,11 @@
   import { matchRoute } from "$lib/routes.js";
   import { Home24, Inbox24 } from "svelte-octicons";
   import UserPill from "$lib/components/UserPill.svelte";
+
+  let user = $page.data.user;
 </script>
 
-{#if matchRoute($page.route, "auth") || !$page.data.user.is_authenticated}
+{#if matchRoute($page.route, "auth") || !user.is_authenticated}
   <div class="app focus">
     <div>
       <main class="center">
@@ -23,13 +25,18 @@
       <Footer />
     </div>
   </div>
-{:else if $page.data.user.is_authenticated}
+{:else if user.is_authenticated}
   <div class="app auth">
     <nav>
       <ul>
         <li><a href="/"><Home24 />Home</a></li>
         <li><a href="/messages"><Inbox24 />Messages</a></li>
-        <li><a href="/profile">Profile</a></li>
+        <li class="profile">
+          <a href="/@{user.username}">
+            <img src={user.profile_picture} alt={user.display_name} />
+            Profile
+          </a>
+        </li>
       </ul>
       <form action="/logout" method="POST">
         <button class="btn secondary">Log out</button>
@@ -40,7 +47,7 @@
         <slot />
       </main>
       <aside>
-        <UserPill user={$page.data.user} />
+        <UserPill {user} />
         <Footer />
       </aside>
     </div>
@@ -75,12 +82,18 @@
   .auth > nav > ul > li > a {
     padding: 1rem;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 1.6rem;
     border-radius: 0.4rem;
     font-size: 1.75rem;
     color: var(--foreground);
     transition: background-color 0.3s ease;
+  }
+
+  .auth > nav > ul > li img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
   }
 
   .auth > nav > ul > li > a:hover {
