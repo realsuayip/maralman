@@ -47,7 +47,7 @@
 
   <button
     type="button"
-    class="btn btn-primary"
+    class="btn"
     on:click={() => {
       setStep("password", true);
     }}

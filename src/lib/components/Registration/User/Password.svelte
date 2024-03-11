@@ -59,7 +59,7 @@
 
   <button
     type="button"
-    class="btn btn-primary"
+    class="btn"
     on:click={() => {
       checkPasswordMatch() && setStep("personal", true);
     }}

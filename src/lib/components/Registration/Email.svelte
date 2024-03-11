@@ -34,5 +34,5 @@
       A confirmation code will be sent to this email.
     </small>
   </div>
-  <button type="submit" class="btn btn-primary">Continue</button>
+  <button type="submit" class="btn">Continue</button>
 </form>

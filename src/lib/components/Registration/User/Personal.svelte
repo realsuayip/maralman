@@ -58,7 +58,7 @@
     </label>
   </div>
 
-  <button type="submit" class="btn btn-primary">Register</button>
+  <button type="submit" class="btn primary">Register</button>
   <button
     type="button"
     class="btn secondary muted"

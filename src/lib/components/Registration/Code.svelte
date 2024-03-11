@@ -38,7 +38,7 @@
     <ErrorText of="code" {errors} />
     <input type="hidden" name="email" value={$fields.email} />
   </div>
-  <button type="submit" class="btn btn-primary">Continue</button>
+  <button type="submit" class="btn">Continue</button>
 
   <form method="post" action="?/email">
     <input type="hidden" name="email" value={$fields.email} />
