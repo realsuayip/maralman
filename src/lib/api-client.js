@@ -1,5 +1,14 @@
-const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL;
-const CLIENT_CREDENTIALS_TOKEN = process.env.CLIENT_CREDENTIALS_TOKEN;
+import { browser } from "$app/environment";
+
+let CLIENT_BASE_URL;
+let CLIENT_CREDENTIALS_TOKEN;
+
+if (browser) {
+  CLIENT_BASE_URL = "https://asu.suayip.dev/";
+} else {
+  CLIENT_BASE_URL = process.env.CLIENT_BASE_URL;
+  CLIENT_CREDENTIALS_TOKEN = process.env.CLIENT_CREDENTIALS_TOKEN;
+}
 
 const GenericError = {
   status: 500,
@@ -17,8 +26,14 @@ export class Client {
     this.users = new User(this);
   }
 
-  getURL(endpoint) {
-    return new URL(`api/${endpoint}/`, CLIENT_BASE_URL);
+  getURL(endpoint, params) {
+    const url = new URL(`api/${endpoint}/`, CLIENT_BASE_URL);
+    if (params) {
+      Object.entries(params).forEach(([key, value]) =>
+        url.searchParams.set(key, value),
+      );
+    }
+    return url;
   }
 
   getHeaders() {
@@ -27,6 +42,14 @@ export class Client {
       "Content-Type": "application/json",
       Authorization: `Bearer ${this.token}`,
     };
+  }
+
+  async get(endpoint, params) {
+    const method = "GET";
+    const url = this.getURL(endpoint, params);
+    const headers = this.getHeaders();
+    const options = { method, headers };
+    return this.toResponse(url, options);
   }
 
   async post(endpoint, payload) {
@@ -118,5 +141,9 @@ class Registration extends Verification {
 class User extends Endpoint {
   async create(payload) {
     return await this.client.post("users", payload);
+  }
+
+  async by(username) {
+    return await this.client.get("users/by", { username });
   }
 }
