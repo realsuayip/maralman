@@ -109,7 +109,7 @@
     flex-basis: 760px;
     max-width: 760px;
     overflow: scroll;
-    padding: 1rem 3.5rem;
+    padding: 2rem 3.5rem;
   }
 
   .auth > .content > aside {

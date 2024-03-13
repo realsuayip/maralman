@@ -18,11 +18,9 @@
       <header class="title">
         <h1>
           {profile.display_name}
-          {#if profile.is_private}
-            <Lock16 />
-          {/if}
+          {#if profile.is_private}<Lock16 />{/if}
           {#if profile.website}
-            <a href={profile.website} target="_blank"> <Link16 /></a>
+            <a href={profile.website} target="_blank"><Link16 /></a>
           {/if}
         </h1>
         <small class="text-secondary">@{profile.username}</small>
@@ -125,12 +123,20 @@
   }
 
   .picture {
-    max-height: 150px;
-    max-width: 150px;
+    height: 150px;
+    width: 150px;
   }
 
   img {
+    height: inherit;
+    width: inherit;
+
     border-radius: 50%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+
     pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
   }
 </style>
