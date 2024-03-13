@@ -108,7 +108,10 @@ class Session {
       return;
     }
     const contents = aes.encrypt(JSON.stringify(this.data));
-    this.cookies.set(AUTH_SESSION_COOKIE, contents, { path: "/" });
+    this.cookies.set(AUTH_SESSION_COOKIE, contents, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365,
+    });
   }
 
   logout() {
