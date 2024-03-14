@@ -1,11 +1,11 @@
 <script>
+  import ProfilePicture from "$lib/components/ProfilePicture.svelte";
+
   export let user;
 </script>
 
 <div class="pill">
-  <a href="/@{user.username}">
-    <img src={user.profile_picture} alt={user.display_name} />
-  </a>
+  <a href="/@{user.username}"><ProfilePicture --size="48px" {user} /></a>
   <div>
     <strong>
       <a href="/@{user.username}">{user.display_name}</a>
@@ -20,13 +20,6 @@
     gap: 1.25rem;
     align-items: center;
     padding: 1rem 0;
-  }
-
-  .pill img {
-    height: 48px;
-    width: 48px;
-    border-radius: 50%;
-    pointer-events: none;
   }
 
   .pill > div {

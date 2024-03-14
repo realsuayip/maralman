@@ -1,6 +1,7 @@
 <script>
   import { page } from "$app/stores";
   import { Calendar16, Link16, Lock16 } from "svelte-octicons";
+  import ProfilePhoto from "$lib/components/ProfilePicture.svelte";
 
   let profile = $page.data.content;
   let joined = new Date(profile.date_joined).toLocaleDateString("en-US", {
@@ -10,9 +11,7 @@
 </script>
 
 <section>
-  <div class="picture">
-    <img src={profile.profile_picture} alt={profile.display_name} />
-  </div>
+  <ProfilePhoto --size="150px" user={profile} />
   <div class="wrapper">
     <div class="stats">
       <header class="title">
@@ -120,23 +119,5 @@
   header {
     display: flex;
     flex-direction: row;
-  }
-
-  .picture {
-    height: 150px;
-    width: 150px;
-  }
-
-  img {
-    height: inherit;
-    width: inherit;
-
-    border-radius: 50%;
-    object-fit: cover;
-    aspect-ratio: 1/1;
-
-    pointer-events: none;
-    user-select: none;
-    -webkit-user-select: none;
   }
 </style>

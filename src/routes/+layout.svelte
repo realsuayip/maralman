@@ -6,6 +6,7 @@
   import { matchRoute } from "$lib/routes.js";
   import { Home24, Inbox24 } from "svelte-octicons";
   import UserPill from "$lib/components/UserPill.svelte";
+  import ProfilePicture from "$lib/components/ProfilePicture.svelte";
 
   let user = $page.data.user;
 </script>
@@ -33,7 +34,7 @@
         <li><a href="/messages"><Inbox24 />Messages</a></li>
         <li class="profile">
           <a href="/@{user.username}">
-            <img src={user.profile_picture} alt={user.display_name} />
+            <ProfilePicture --size="24px" {user} />
             Profile
           </a>
         </li>
@@ -88,12 +89,6 @@
     font-size: 1.75rem;
     color: var(--foreground);
     transition: background-color 0.3s ease;
-  }
-
-  .auth > nav > ul > li img {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
   }
 
   .auth > nav > ul > li > a:hover {
