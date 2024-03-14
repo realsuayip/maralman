@@ -8,5 +8,5 @@ export const load = async ({ fetch, parent, params }) => {
   if (errors) {
     error(errors.status, { message: errors.messages });
   }
-  return { content };
+  return { profile: content };
 };

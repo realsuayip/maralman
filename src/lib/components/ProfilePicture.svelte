@@ -3,8 +3,8 @@
 
   export let user;
 
-  let alt = `Profile picture of ${user.display_name}`;
-  let src = user.profile_picture || placeholder;
+  $: alt = `Profile picture of ${user.display_name}`;
+  $: src = user.profile_picture || placeholder;
 </script>
 
 <div><img {src} {alt} /></div>

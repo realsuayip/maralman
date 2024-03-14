@@ -3,8 +3,8 @@
   import { Calendar16, Link16, Lock16 } from "svelte-octicons";
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
 
-  let profile = $page.data.content;
-  let joined = new Date(profile.date_joined).toLocaleDateString("en-US", {
+  $: ({ profile } = $page.data);
+  $: joined = new Date(profile.date_joined).toLocaleDateString("en-US", {
     month: "long",
     year: "numeric",
   });
