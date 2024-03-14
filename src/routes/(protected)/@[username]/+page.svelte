@@ -1,7 +1,7 @@
 <script>
   import { page } from "$app/stores";
   import { Calendar16, Link16, Lock16 } from "svelte-octicons";
-  import ProfilePhoto from "$lib/components/ProfilePicture.svelte";
+  import ProfilePicture from "$lib/components/ProfilePicture.svelte";
 
   let profile = $page.data.content;
   let joined = new Date(profile.date_joined).toLocaleDateString("en-US", {
@@ -11,7 +11,7 @@
 </script>
 
 <section>
-  <ProfilePhoto --size="150px" user={profile} />
+  <ProfilePicture --size="150px" user={profile} />
   <div class="wrapper">
     <div class="stats">
       <header class="title">
