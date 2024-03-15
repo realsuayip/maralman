@@ -49,7 +49,6 @@ async function getAuthorizationTokens(code, verifier) {
 async function rotateToken(refresh_token) {
   const body = new URLSearchParams({
     client_id: env.OAUTH_CLIENT_ID,
-    client_secret: env.OAUTH_CLIENT_SECRET,
     grant_type: "refresh_token",
     refresh_token: refresh_token,
   });
