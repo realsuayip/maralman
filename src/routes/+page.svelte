@@ -8,6 +8,7 @@
 
 {#if $page.data.user.is_authenticated}
   <pre>{JSON.stringify($page.data.user, undefined, 4)}</pre>
+  <pre>{JSON.stringify($page.data.session.ident, undefined, 4)}</pre>
 {:else}
   <header>
     <h1>Sign in</h1>

@@ -5,4 +5,8 @@ export class ServerClient extends Client {
   get token() {
     return this._token || env.CLIENT_CREDENTIALS_TOKEN;
   }
+
+  set token(value) {
+    this._token = value;
+  }
 }

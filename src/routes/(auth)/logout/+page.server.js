@@ -8,7 +8,7 @@ export const load = async () => {
 export const actions = {
   // todo invalidate tokens
   default: async ({ locals }) => {
-    locals.session.logout();
+    locals.session.flush();
     locals.session.commit();
     return redirect(302, "/");
   },

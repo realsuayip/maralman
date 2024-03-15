@@ -80,8 +80,22 @@ class Session {
       this.data = JSON.parse(contents);
     }
 
-    this.ident = this.data.ident;
     this.client = new ServerClient(fetch, this.ident?.access_token);
+  }
+
+  get ident() {
+    return this.data.ident;
+  }
+
+  set ident(content) {
+    this.set("ident", content);
+    this.client.token = content.access_token;
+  }
+
+  flush() {
+    this.delete("verifier");
+    this.delete("ident");
+    this.client.token = null;
   }
 
   set(key, value) {
@@ -108,18 +122,13 @@ class Session {
     });
   }
 
-  logout() {
-    this.delete("verifier");
-    this.delete("ident");
-  }
-
   async rotate() {
     const refreshToken = this.ident.refresh_token;
     const { ok, content } = await rotateToken(refreshToken);
     if (ok) {
-      this.set("ident", content);
+      this.ident = content;
     } else {
-      this.delete("ident");
+      this.flush();
     }
     return { ok, content };
   }

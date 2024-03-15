@@ -20,6 +20,10 @@ export class Client {
     return this._token;
   }
 
+  set token(value) {
+    this._token = value;
+  }
+
   getURL(endpoint, params) {
     const url = new URL(`api/${endpoint}/`, env.PUBLIC_CLIENT_BASE_URL);
     if (params) {
