@@ -140,4 +140,8 @@ class User extends Endpoint {
   async by(username) {
     return await this.client.get("users/by", { username });
   }
+
+  async me() {
+    return await this.client.get("users/me");
+  }
 }

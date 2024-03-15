@@ -3,6 +3,7 @@ import aes from "$lib/server/aes.js";
 
 import { env as pub } from "$env/dynamic/public";
 import { env } from "$env/dynamic/private";
+import { ServerClient } from "$lib/server/api-client.js";
 
 const AUTH_SESSION_COOKIE = "sessionid";
 const OAUTH_AUTHORIZE_URL = pub.PUBLIC_CLIENT_BASE_URL + "o/authorize/";
@@ -67,17 +68,9 @@ async function rotateToken(refresh_token) {
 
 const AnonymousUser = { is_authenticated: false };
 
-async function getAuthenticatedUser(token) {
-  const response = await fetch("https://asu.suayip.dev/api/users/me/", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  const content = await response.json();
-  return { ok: response.ok, status: response.status, content };
-}
-
 class Session {
   // Store session data in cookies in an encrypted manner.
-  constructor(cookies) {
+  constructor(cookies, fetch) {
     this.cookies = cookies;
     this.data = {};
 
@@ -86,6 +79,9 @@ class Session {
       const contents = aes.decrypt(value);
       this.data = JSON.parse(contents);
     }
+
+    this.ident = this.data.ident;
+    this.client = new ServerClient(fetch, this.ident?.access_token);
   }
 
   set(key, value) {
@@ -118,7 +114,7 @@ class Session {
   }
 
   async rotate() {
-    const refreshToken = this.data["ident"]["refresh_token"];
+    const refreshToken = this.ident.refresh_token;
     const { ok, content } = await rotateToken(refreshToken);
     if (ok) {
       this.set("ident", content);
@@ -129,13 +125,11 @@ class Session {
   }
 
   async getUser() {
-    const ident = this.data["ident"];
-    if (ident) {
-      const accessToken = ident["access_token"];
-      const { ok, status, content } = await getAuthenticatedUser(accessToken);
-      if (ok) {
+    if (this.ident) {
+      const { response, content } = await this.client.users.me();
+      if (response.ok) {
         return { ...content, is_authenticated: true };
-      } else if (status === 401) {
+      } else if (response.status === 401) {
         const { ok } = await this.rotate();
         if (ok) {
           return await this.getUser();
