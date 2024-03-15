@@ -1,11 +1,13 @@
 import crypto from "crypto";
 import aes from "$lib/server/aes.js";
 
-const OAUTH_AUTHORIZE_URL = process.env.OAUTH_AUTHORIZE_URL;
-const OAUTH_TOKEN_URL = process.env.OAUTH_TOKEN_URL;
-const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID;
-const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET;
-const OAUTH_REDIRECT_URI = process.env.OAUTH_REDIRECT_URI;
+import {
+  OAUTH_AUTHORIZE_URL,
+  OAUTH_TOKEN_URL,
+  OAUTH_CLIENT_ID,
+  OAUTH_CLIENT_SECRET,
+  OAUTH_REDIRECT_URI,
+} from "$env/static/private";
 
 const AUTH_SESSION_COOKIE = "sessionid";
 

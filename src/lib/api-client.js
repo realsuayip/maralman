@@ -1,14 +1,4 @@
-import { browser } from "$app/environment";
-
-let CLIENT_BASE_URL;
-let CLIENT_CREDENTIALS_TOKEN;
-
-if (browser) {
-  CLIENT_BASE_URL = "https://asu.suayip.dev/";
-} else {
-  CLIENT_BASE_URL = process.env.CLIENT_BASE_URL;
-  CLIENT_CREDENTIALS_TOKEN = process.env.CLIENT_CREDENTIALS_TOKEN;
-}
+import { PUBLIC_CLIENT_BASE_URL } from "$env/static/public";
 
 const GenericError = {
   status: 500,
@@ -17,17 +7,21 @@ const GenericError = {
 };
 
 export class Client {
-  constructor(fetch, token) {
+  constructor(fetch, token = null) {
     this.fetch = fetch;
-    this.token = token || CLIENT_CREDENTIALS_TOKEN;
+    this._token = token;
 
     // Endpoints
     this.registration = new Registration(this);
     this.users = new User(this);
   }
 
+  get token() {
+    return this._token;
+  }
+
   getURL(endpoint, params) {
-    const url = new URL(`api/${endpoint}/`, CLIENT_BASE_URL);
+    const url = new URL(`api/${endpoint}/`, PUBLIC_CLIENT_BASE_URL);
     if (params) {
       Object.entries(params).forEach(([key, value]) =>
         url.searchParams.set(key, value),

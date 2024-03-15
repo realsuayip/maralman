@@ -1,4 +1,4 @@
-import { Client } from "$lib/api-client.js";
+import { ServerClient } from "$lib/server/api-client.js";
 import { redirect, fail } from "@sveltejs/kit";
 
 /**
@@ -10,7 +10,7 @@ async function email({ request, fetch }) {
   const email = data.get("email");
   const resend = !!data.get("resend");
 
-  const client = new Client(fetch);
+  const client = new ServerClient(fetch);
   const { response, content, errors } = await client.registration.send(email);
 
   if (!response.ok) {
@@ -27,7 +27,7 @@ async function code({ request, fetch }) {
   const data = Object.fromEntries(await request.formData());
   const { email, code } = data;
 
-  const client = new Client(fetch);
+  const client = new ServerClient(fetch);
   const { response, content, errors } = await client.registration.check(
     email,
     code,
@@ -47,7 +47,7 @@ async function user({ request, fetch, locals }) {
   const data = await request.formData();
   const payload = Object.fromEntries(data);
 
-  const client = new Client(fetch);
+  const client = new ServerClient(fetch);
   const { response, content, errors } = await client.users.create(payload);
 
   if (!response.ok) {
