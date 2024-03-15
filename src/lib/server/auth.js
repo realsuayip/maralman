@@ -4,6 +4,7 @@ import aes from "$lib/server/aes.js";
 import { env as pub } from "$env/dynamic/public";
 import { env } from "$env/dynamic/private";
 import { ServerClient } from "$lib/server/api-client.js";
+import { error } from "@sveltejs/kit";
 
 const AUTH_SESSION_COOKIE = "sessionid";
 const OAUTH_AUTHORIZE_URL = pub.PUBLIC_CLIENT_BASE_URL + "o/authorize/";
@@ -135,7 +136,7 @@ class Session {
 
   async getUser() {
     if (this.ident) {
-      const { response, content } = await this.client.users.me();
+      const { response, content, errors } = await this.client.users.me();
       if (response.ok) {
         return { ...content, is_authenticated: true };
       } else if (response.status === 401) {
@@ -143,6 +144,8 @@ class Session {
         if (ok) {
           return await this.getUser();
         }
+      } else {
+        error(errors.status, { message: errors.messages });
       }
     }
     return AnonymousUser;
