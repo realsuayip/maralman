@@ -1,15 +1,12 @@
 import crypto from "crypto";
 import aes from "$lib/server/aes.js";
 
-import {
-  OAUTH_AUTHORIZE_URL,
-  OAUTH_TOKEN_URL,
-  OAUTH_CLIENT_ID,
-  OAUTH_CLIENT_SECRET,
-  OAUTH_REDIRECT_URI,
-} from "$env/static/private";
+import { env as pub } from "$env/dynamic/public";
+import { env } from "$env/dynamic/private";
 
 const AUTH_SESSION_COOKIE = "sessionid";
+const OAUTH_AUTHORIZE_URL = pub.PUBLIC_CLIENT_BASE_URL + "o/authorize/";
+const OAUTH_TOKEN_URL = pub.PUBLIC_CLIENT_BASE_URL + "o/token/";
 
 function createAuthorizationRequest() {
   const verifier = crypto.randomBytes(100).toString("binary");
@@ -21,8 +18,8 @@ function createAuthorizationRequest() {
     response_type: "code",
     code_challenge: challenge,
     code_challenge_method: "S256",
-    client_id: "default",
-    redirect_uri: "http://localhost:5173/login/",
+    client_id: env.OAUTH_CLIENT_ID,
+    redirect_uri: env.OAUTH_REDIRECT_URI,
   });
   const url = OAUTH_AUTHORIZE_URL + `?` + params.toString();
   return { url, verifier };
@@ -30,12 +27,12 @@ function createAuthorizationRequest() {
 
 async function getAuthorizationTokens(code, verifier) {
   const body = new URLSearchParams({
-    client_id: OAUTH_CLIENT_ID,
-    client_secret: OAUTH_CLIENT_SECRET,
+    client_id: env.OAUTH_CLIENT_ID,
+    client_secret: env.OAUTH_CLIENT_SECRET,
     grant_type: "authorization_code",
     code: code,
     code_verifier: verifier,
-    redirect_uri: OAUTH_REDIRECT_URI,
+    redirect_uri: env.OAUTH_REDIRECT_URI,
   });
   const response = await fetch(OAUTH_TOKEN_URL, {
     method: "POST",
@@ -51,8 +48,8 @@ async function getAuthorizationTokens(code, verifier) {
 
 async function rotateToken(refresh_token) {
   const body = new URLSearchParams({
-    client_id: OAUTH_CLIENT_ID,
-    client_secret: OAUTH_CLIENT_SECRET,
+    client_id: env.OAUTH_CLIENT_ID,
+    client_secret: env.OAUTH_CLIENT_SECRET,
     grant_type: "refresh_token",
     refresh_token: refresh_token,
   });

@@ -1,4 +1,4 @@
-import { PUBLIC_CLIENT_BASE_URL } from "$env/static/public";
+import { env } from "$env/dynamic/public";
 
 const GenericError = {
   status: 500,
@@ -21,7 +21,7 @@ export class Client {
   }
 
   getURL(endpoint, params) {
-    const url = new URL(`api/${endpoint}/`, PUBLIC_CLIENT_BASE_URL);
+    const url = new URL(`api/${endpoint}/`, env.PUBLIC_CLIENT_BASE_URL);
     if (params) {
       Object.entries(params).forEach(([key, value]) =>
         url.searchParams.set(key, value),
