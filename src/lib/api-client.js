@@ -42,21 +42,34 @@ export class Client {
     };
   }
 
-  async get(endpoint, params) {
-    const method = "GET";
+  async request(method, endpoint, payload, params) {
     const url = this.getURL(endpoint, params);
     const headers = this.getHeaders();
     const options = { method, headers };
+    if (payload) {
+      options.body = JSON.stringify(payload);
+    }
     return this.toResponse(url, options);
   }
 
-  async post(endpoint, payload) {
-    const method = "POST";
-    const url = this.getURL(endpoint);
-    const headers = this.getHeaders();
-    const body = JSON.stringify(payload);
-    const options = { method, headers, body };
-    return this.toResponse(url, options);
+  async get(endpoint, params, payload) {
+    return await this.request("GET", endpoint, payload, params);
+  }
+
+  async post(endpoint, payload, params) {
+    return await this.request("POST", endpoint, payload, params);
+  }
+
+  async patch(endpoint, payload, params) {
+    return await this.request("PATCH", endpoint, payload, params);
+  }
+
+  async put(endpoint, payload, params) {
+    return await this.request("PUT", endpoint, payload, params);
+  }
+
+  async delete(endpoint, payload, params) {
+    return await this.request("DELETE", endpoint, payload, params);
   }
 
   async toResponse(url, options) {
