@@ -10,40 +10,46 @@
   });
 </script>
 
-<section>
-  <ProfilePicture --size="150px" user={profile} />
-  <div class="wrapper">
-    <div class="stats">
-      <header class="title">
-        <h1>
-          {profile.display_name}
-          {#if profile.is_private}<Lock16 />{/if}
-          {#if profile.website}
-            <a href={profile.website} target="_blank"><Link16 /></a>
-          {/if}
-        </h1>
-        <small class="text-secondary">@{profile.username}</small>
-      </header>
-      <article class="bottom">
-        <div class="follows">
-          <a href="/@{profile.username}/followers">
-            {profile.follower_count} Followers
-          </a>
-          <a href="/@{profile.username}/following">
-            {profile.following_count} Following
-          </a>
-        </div>
-        <p class="description">{profile.description}</p>
-      </article>
+<div class="user-profile">
+  <section>
+    <ProfilePicture --size="150px" user={profile} />
+    <div class="wrapper">
+      <div class="stats">
+        <header class="title">
+          <h1>
+            {profile.display_name}
+            {#if profile.is_private}<Lock16 />{/if}
+            {#if profile.website}
+              <a href={profile.website} target="_blank"><Link16 /></a>
+            {/if}
+          </h1>
+          <small class="text-secondary">@{profile.username}</small>
+        </header>
+        <article class="bottom">
+          <div class="follows">
+            <a href="/@{profile.username}/followers">
+              {profile.follower_count} Followers
+            </a>
+            <a href="/@{profile.username}/following">
+              {profile.following_count} Following
+            </a>
+          </div>
+          <p class="description">{profile.description}</p>
+        </article>
+      </div>
+      <aside class="text-secondary joined">
+        <Calendar16 />
+        <span>Joined {joined}</span>
+      </aside>
     </div>
-    <aside class="text-secondary joined">
-      <Calendar16 />
-      <span>Joined {joined}</span>
-    </aside>
-  </div>
-</section>
+  </section>
+</div>
 
 <style>
+  .user-profile {
+    padding: 0 3.5rem;
+  }
+
   section {
     display: flex;
     align-items: center;

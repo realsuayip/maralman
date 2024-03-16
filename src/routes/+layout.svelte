@@ -4,7 +4,7 @@
   import Footer from "$lib/components/Footer.svelte";
   import { page } from "$app/stores";
   import { matchRoute } from "$lib/routes.js";
-  import { Home24, Inbox24 } from "svelte-octicons";
+  import { Home24, Inbox24, Gear24 } from "svelte-octicons";
   import UserPill from "$lib/components/UserPill.svelte";
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
 
@@ -32,6 +32,7 @@
       <ul>
         <li><a href="/"><Home24 />Home</a></li>
         <li><a href="/messages"><Inbox24 />Messages</a></li>
+        <li><a href="/settings/account"><Gear24 />Settings</a></li>
         <li class="profile">
           <a href="/@{user.username}">
             <ProfilePicture --size="24px" {user} />
@@ -61,7 +62,7 @@
   }
 
   .auth > nav {
-    padding: 1rem;
+    padding: 1.75rem 1rem 1rem;
     position: sticky;
     top: 0;
     left: 0;
@@ -104,11 +105,11 @@
     flex-basis: 760px;
     max-width: 760px;
     overflow: scroll;
-    padding: 2rem 3.5rem;
+    padding-top: 1.75rem;
   }
 
   .auth > .content > aside {
-    padding: 2rem;
+    padding: 1.75rem 2rem 2rem;
     position: sticky;
     height: 100vh;
     top: 0;
