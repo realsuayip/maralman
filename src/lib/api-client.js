@@ -161,4 +161,8 @@ class User extends Endpoint {
   async me() {
     return await this.client.get("users/me");
   }
+
+  async update(payload) {
+    return this.client.patch("users/me", payload);
+  }
 }

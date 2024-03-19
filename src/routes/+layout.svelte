@@ -8,7 +8,7 @@
   import UserPill from "$lib/components/UserPill.svelte";
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
 
-  let user = $page.data.user;
+  $: user = $page.data.user;
 </script>
 
 {#if matchRoute($page.route, "auth") || !user.is_authenticated}
