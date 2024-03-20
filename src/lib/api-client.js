@@ -1,4 +1,5 @@
 import { env } from "$env/dynamic/public";
+import { browser } from "$app/environment";
 
 const GenericError = {
   status: 500,
@@ -83,6 +84,11 @@ export class Client {
           .then((content) => {
             if (response.ok) {
               return { response, content };
+            }
+            if (response.status === 401 && browser) {
+              // Access token is possibly expired, reload the page
+              // to force token rotation.
+              location.reload();
             }
             return { response, content, errors: this.toErrors(content) };
           })
