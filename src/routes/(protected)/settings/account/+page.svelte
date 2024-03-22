@@ -5,6 +5,7 @@
   import { page } from "$app/stores";
   import { derived } from "svelte/store";
   import { enhance } from "$app/forms";
+  import Spinner from "$lib/components/Spinner.svelte";
 
   let loading = false;
 
@@ -105,8 +106,8 @@
     </div>
   </div>
 
-  <button class="btn primary" class:secondary={loading}>
-    {#if loading}Just a minute...{:else}Save{/if}
+  <button class="btn primary" class:secondary={loading} disabled={loading}>
+    {#if loading}<Spinner />{:else}Save{/if}
   </button>
 </form>
 
