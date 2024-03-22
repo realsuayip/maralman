@@ -17,7 +17,9 @@
     </small>
   </header>
   <div class="subject">
-    <a href="/login" class="btn primary">Sign in</a>
+    <form action="/login">
+      <button class="btn primary">Sign in</button>
+    </form>
     <a href="/register" class="btn secondary muted">Create a new account</a>
   </div>
 {/if}

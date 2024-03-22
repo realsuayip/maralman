@@ -7,6 +7,7 @@
   import { Home24, Inbox24, Gear24 } from "svelte-octicons";
   import UserPill from "$lib/components/UserPill.svelte";
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
+  import Spinner from "$lib/components/Spinner.svelte";
 
   $: user = $page.data.user;
 </script>
@@ -17,7 +18,7 @@
       <main class="center">
         {#if $navigating}
           <div class="subject">
-            <strong>Just a minute...</strong>
+            <Spinner />
           </div>
         {:else}
           <slot />
