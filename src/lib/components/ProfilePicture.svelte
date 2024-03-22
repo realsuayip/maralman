@@ -13,6 +13,7 @@
   div {
     height: var(--size);
     width: var(--size);
+    margin: var(--margin);
   }
 
   img {

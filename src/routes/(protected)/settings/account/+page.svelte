@@ -6,6 +6,7 @@
   import { derived } from "svelte/store";
   import { enhance } from "$app/forms";
   import Spinner from "$lib/components/Spinner.svelte";
+  import { Globe16, Lock16 } from "svelte-octicons";
 
   let loading = false;
 
@@ -29,10 +30,12 @@
   <Alert messages={$page.form?.errors?.messages} />
 
   <div class="wrapper" aria-labelledby="primary-information">
-    <h2 style="margin-top:0;" id="primary-information">Primary information</h2>
+    <h2 style="margin-top:0;" id="primary-information">
+      <Globe16 />Primary information
+    </h2>
 
     <div class="user-header">
-      <ProfilePicture --size="150px" {user} />
+      <ProfilePicture --margin="1rem" --size="150px" {user} />
       <div class="wrapper">
         <div class="input-group">
           <label for="display_name">Display name</label>
@@ -50,7 +53,7 @@
             name="description"
             value={user.description}
             id="description"
-            rows="4"
+            rows="5"
           />
           <ErrorText of="description" {errors} />
         </div>
@@ -71,7 +74,7 @@
   </div>
 
   <div class="wrapper" aria-labelledby="personal-information">
-    <h2 id="personal-information">Personal information</h2>
+    <h2 id="personal-information"><Lock16 />Personal information</h2>
 
     <div class="input-group">
       <label for="birth_date">Birth date</label>
@@ -87,20 +90,24 @@
 
     <div class="input-group">
       <label for="language">Language</label>
-      <select name="language" value={user.language} id="language">
-        <option value="en">English</option>
-        <option value="tr">Turkish</option>
+      <select name="language" id="language">
+        <option value="en" selected={user.language === "en"}>English</option>
+        <option value="tr" selected={user.language === "tr"}>Turkish</option>
       </select>
       <ErrorText of="language" {errors} />
     </div>
 
     <div class="input-group">
       <label for="gender">Gender</label>
-      <select name="gender" value={user.gender} id="gender">
-        <option value="unspecified">Unspecified</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-        <option value="other">Other</option>
+      <select name="gender" id="gender">
+        <option value="unspecified" selected={user.gender === "unspecified"}>
+          Unspecified
+        </option>
+        <option value="male" selected={user.gender === "male"}>Male</option>
+        <option value="female" selected={user.gender === "female"}>
+          Female
+        </option>
+        <option value="other" selected={user.gender === "other"}>Other</option>
       </select>
       <ErrorText of="gender" {errors} />
     </div>
@@ -120,6 +127,9 @@
     font-weight: 700;
     font-size: 1.75rem;
     margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .wrapper {
@@ -133,5 +143,9 @@
     display: flex;
     align-items: center;
     gap: 2rem;
+  }
+
+  button {
+    margin-top: 0.5rem;
   }
 </style>
