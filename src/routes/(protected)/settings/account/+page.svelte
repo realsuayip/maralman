@@ -43,6 +43,8 @@
             name="display_name"
             value={user.display_name}
             id="display_name"
+            maxlength="32"
+            required
           />
           <ErrorText of="display_name" {errors} />
         </div>
@@ -62,7 +64,13 @@
 
     <div class="input-group">
       <label for="username">Username</label>
-      <input name="username" value={user.username} id="username" />
+      <input
+        name="username"
+        value={user.username}
+        id="username"
+        minlength="3"
+        required
+      />
       <ErrorText of="username" {errors} />
     </div>
 
