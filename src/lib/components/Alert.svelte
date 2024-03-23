@@ -1,7 +1,9 @@
 <script>
+  import { blur } from "svelte/transition";
+
   export let messages;
 </script>
 
 {#each messages || [] as message}
-  <p role="alert" class="banner danger">{message}</p>
+  <p in:blur role="alert" class="banner danger">{message}</p>
 {/each}
