@@ -410,3 +410,59 @@ div.focus {
   justify-content: center;
   height: 100vh;
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.gap-25 {
+  gap: 0.25rem;
+}
+.gap-50 {
+  gap: 0.5rem;
+}
+.gap-75 {
+  gap: 0.75rem;
+}
+.gap-100 {
+  gap: 1rem;
+}
+.gap-125 {
+  gap: 1.25rem;
+}
+.gap-150 {
+  gap: 1.5rem;
+}
+.gap-175 {
+  gap: 1.75rem;
+}
+.gap-200 {
+  gap: 2rem;
+}
+.gap-225 {
+  gap: 2.25rem;
+}
+.gap-300 {
+  gap: 3rem;
+}
+.gap-400 {
+  gap: 4rem;
+}

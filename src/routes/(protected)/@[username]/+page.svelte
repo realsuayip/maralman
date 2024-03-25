@@ -10,104 +10,59 @@
   });
 </script>
 
-<div class="user-profile">
-  <section>
-    <ProfilePicture --size="150px" user={profile} />
-    <div class="wrapper">
-      <div class="stats">
-        <header class="title">
-          <h1>
-            {profile.display_name}
-            {#if profile.is_private}<Lock16 />{/if}
-            {#if profile.website}
-              <a href={profile.website} target="_blank"><Link16 /></a>
-            {/if}
-          </h1>
-          <small class="text-secondary">@{profile.username}</small>
-        </header>
-        <article class="bottom">
-          <div class="follows">
-            <a href="/@{profile.username}/followers">
-              {profile.follower_count} Followers
+<section class="flex-row items-center gap-400">
+  <ProfilePicture --size="150px" user={profile} />
+
+  <div class="wrapper flex-col space-between">
+    <div class="flex-col gap-125">
+      <header class="flex-col gap-25">
+        <h1 class="flex-row gap-50">
+          {profile.display_name}
+          {#if profile.is_private}<span class="icon"><Lock16 /></span>{/if}
+          {#if profile.website}
+            <a class="icon" href={profile.website} target="_blank">
+              <Link16 />
             </a>
-            <a href="/@{profile.username}/following">
-              {profile.following_count} Following
-            </a>
-          </div>
-          <p class="description">{profile.description}</p>
-        </article>
-      </div>
-      <aside class="text-secondary joined">
-        <Calendar16 />
-        <span>Joined {joined}</span>
-      </aside>
+          {/if}
+        </h1>
+        <small class="text-secondary">@{profile.username}</small>
+      </header>
+
+      <article class="flex-col gap-225">
+        <div class="flex-row gap-200">
+          <a href="/@{profile.username}/followers">
+            {profile.follower_count} Followers
+          </a>
+          <a href="/@{profile.username}/following">
+            {profile.following_count} Following
+          </a>
+        </div>
+        <p>{profile.description}</p>
+      </article>
     </div>
-  </section>
-</div>
+
+    <aside class="text-secondary joined flex-row items-center gap-50">
+      <Calendar16 />
+      <span>Joined {joined}</span>
+    </aside>
+  </div>
+</section>
 
 <style>
-  .user-profile {
+  section {
+    height: 150px;
     padding: 0 3.5rem;
   }
 
-  section {
-    display: flex;
-    align-items: center;
-    gap: 4rem;
-    height: 150px;
-  }
-
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: space-between;
-    flex-grow: 1;
-    overflow: scroll;
-  }
-
-  .stats {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 2.25rem;
-  }
-
-  .description {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .title {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-  }
-
-  .title small {
-    font-size: 1.4rem;
-  }
-
-  .follows {
-    display: flex;
-    gap: 2rem;
-  }
-
-  .follows a,
-  .title a {
+  section a {
     color: inherit;
     font-weight: 600;
   }
 
-  .joined {
-    display: flex;
-    gap: 0.5rem;
+  .wrapper {
+    height: 100%;
+    flex-grow: 1;
+    overflow: scroll;
   }
 
   .joined span {
@@ -116,14 +71,12 @@
   }
 
   h1 {
+    white-space: nowrap;
     font-size: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: initial;
   }
 
-  header {
-    display: flex;
-    flex-direction: row;
+  h1 .icon {
+    height: 16px;
   }
 </style>
