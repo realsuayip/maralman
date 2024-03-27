@@ -34,7 +34,7 @@
       <Globe16 />Primary information
     </h2>
 
-    <div class="user-header">
+    <div class="flex-row items-center gap-200">
       <ProfilePicture --margin="1rem" --size="150px" {user} />
       <div class="wrapper">
         <div class="input-group">
@@ -145,12 +145,6 @@
     flex-grow: 1;
     flex-direction: column;
     gap: 1.25rem;
-  }
-
-  .user-header {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
   }
 
   button {
