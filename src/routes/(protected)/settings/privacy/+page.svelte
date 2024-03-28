@@ -1,9 +1,27 @@
 <script>
   import { Lock16, ArrowRight16 } from "svelte-octicons";
   import Toggle from "$lib/components/Toggle.svelte";
+  import { enhance } from "$app/forms";
+  import { page } from "$app/stores";
+  import Spinner from "$lib/components/Spinner.svelte";
+  import Alert from "$lib/components/Alert.svelte";
+
+  let loading;
+
+  $: user = $page.form?.user || $page.data.user;
 </script>
 
-<form class="flex-col gap-150">
+<form
+  method="post"
+  class="flex-col gap-150"
+  use:enhance={() => {
+    loading = true;
+    return async ({ update }) => {
+      await update({ reset: false });
+      loading = false;
+    };
+  }}
+>
   <h1 class="flex-row items-center gap-75"><Lock16 />Privacy</h1>
 
   <div class="preference flex-col gap-100">
@@ -14,6 +32,8 @@
     <small>See the list of blocked users and manage them.</small>
   </div>
 
+  <Alert messages={$page.form?.errors?.messages} />
+
   <div class="preference">
     <Toggle class="space-between" for="is_private">
       <strong>Private account</strong>
@@ -22,6 +42,7 @@
         name="is_private"
         id="is_private"
         aria-describedby="is_private_desc"
+        bind:checked={user.is_private}
       />
     </Toggle>
     <small id="is_private_desc">
@@ -38,6 +59,7 @@
         name="allows_all_messages"
         id="allows_all_messages"
         aria-describedby="allows_all_messages_desc"
+        bind:checked={user.allows_all_messages}
       />
     </Toggle>
     <small id="allows_all_messages_desc">
@@ -54,6 +76,7 @@
         name="allows_receipts"
         id="allows_receipts"
         aria-describedby="allows_receipts_desc"
+        bind:checked={user.allows_receipts}
       />
     </Toggle>
     <small id="allows_receipts_desc">
@@ -63,7 +86,9 @@
     </small>
   </div>
 
-  <button class="btn primary">Save</button>
+  <button class="btn primary" class:secondary={loading} disabled={loading}>
+    {#if loading}<Spinner />{:else}Save{/if}
+  </button>
   <a class="btn secondary muted" href="/settings/privacy/deactivate/">
     <small class="text-secondary">Deactivate your account</small>
   </a>
