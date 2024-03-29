@@ -22,7 +22,7 @@
     };
   }}
 >
-  <h1 class="flex-row items-center gap-75"><Lock16 />Privacy</h1>
+  <h1 class="title flex-row items-center gap-75"><Lock16 />Privacy</h1>
 
   <div class="preference flex-col gap-100">
     <a href="/settings/privacy/blocked/" class="blocked gap-25">
@@ -104,11 +104,5 @@
     background: var(--background-accent);
     border: var(--border-accent);
     border-radius: 1rem;
-  }
-
-  h1 {
-    font-weight: 700;
-    font-size: 1.75rem;
-    margin-top: 0;
   }
 </style>
