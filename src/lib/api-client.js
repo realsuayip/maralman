@@ -14,6 +14,7 @@ export class Client {
 
     // Endpoints
     this.registration = new Registration(this);
+    this.email = new Email(this);
     this.users = new User(this);
   }
 
@@ -153,6 +154,10 @@ class Verification extends Endpoint {
 
 class Registration extends Verification {
   type = "registration";
+}
+
+class Email extends Verification {
+  type = "email";
 }
 
 class User extends Endpoint {
