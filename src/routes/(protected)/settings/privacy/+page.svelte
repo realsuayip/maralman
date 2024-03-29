@@ -42,7 +42,7 @@
         name="is_private"
         id="is_private"
         aria-describedby="is_private_desc"
-        bind:checked={user.is_private}
+        checked={user.is_private}
       />
     </Toggle>
     <small id="is_private_desc">
@@ -59,7 +59,7 @@
         name="allows_all_messages"
         id="allows_all_messages"
         aria-describedby="allows_all_messages_desc"
-        bind:checked={user.allows_all_messages}
+        checked={user.allows_all_messages}
       />
     </Toggle>
     <small id="allows_all_messages_desc">
@@ -76,7 +76,7 @@
         name="allows_receipts"
         id="allows_receipts"
         aria-describedby="allows_receipts_desc"
-        bind:checked={user.allows_receipts}
+        checked={user.allows_receipts}
       />
     </Toggle>
     <small id="allows_receipts_desc">
