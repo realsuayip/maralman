@@ -3,7 +3,7 @@
   import { page } from "$app/stores";
 </script>
 
-<div class="wrapper">
+<div class="flex-row gap-200">
   <nav>
     <ul>
       <li class:active={$page.url.pathname.includes("/settings/account/")}>
@@ -25,26 +25,9 @@
 </div>
 
 <style>
-  .wrapper {
-    display: flex;
-    gap: 2rem;
-  }
-
   .content {
     padding: 1rem;
     flex-grow: 1;
-  }
-
-  nav {
-    position: sticky;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    background-color: var(--background);
   }
 
   nav > ul {
@@ -69,7 +52,6 @@
     display: flex;
     align-items: center;
     gap: 1.6rem;
-    border-radius: 0.4rem;
     color: var(--foreground);
     transition: background-color 0.3s ease;
   }
