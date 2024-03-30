@@ -36,7 +36,7 @@
   <Alert messages={$page.form?.errors?.messages} />
 
   {#if step === "send"}
-    <div class="banner flex-col gap-125">
+    <div class="banner muted flex-col gap-125">
       <p>
         You can change your email using this form; enter your new email below to
         receive a confirmation code. Once you enter the code, your email will be
@@ -60,7 +60,7 @@
       <ErrorText of="email" {errors} />
     </div>
   {:else if step === "confirm"}
-    <div class="banner flex-col gap-125">
+    <div class="banner muted flex-col gap-125">
       Please enter the six-digit confirmation code we just sent to your new
       email. Once you enter the code, your email will be changed to:
       <strong>{$fields.email}</strong>

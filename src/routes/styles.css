@@ -366,6 +366,11 @@ a {
   border: 1px solid rgba(4, 102, 255, 0.4);
 }
 
+.banner.muted {
+  background: var(--background-accent);
+  border: none;
+}
+
 .banner.warning {
   background: rgba(187, 128, 9, 0.15);
   border-color: rgba(187, 128, 9, 0.4);
