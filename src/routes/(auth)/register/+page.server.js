@@ -1,18 +1,18 @@
-import { ServerClient } from "$lib/server/api-client.js";
 import { redirect, fail } from "@sveltejs/kit";
 
 /**
  * Sends a confirmation code to given email. This code
  * will be requested during `code` action.
  */
-async function email({ request, fetch }) {
+async function email({
+  request,
+  locals: {
+    session: { client },
+  },
+}) {
   const data = await request.formData();
-  const email = data.get("email");
-  const resend = !!data.get("resend");
-
-  const client = new ServerClient(fetch);
+  const [email, resend] = [data.get("email"), !!data.get("resend")];
   const { response, content, errors } = await client.registration.send(email);
-
   if (!response.ok) {
     return fail(400, { email, errors });
   }
@@ -23,16 +23,17 @@ async function email({ request, fetch }) {
  * Given code and email, try to obtain a consent which
  * is needed to create a user.
  */
-async function code({ request, fetch }) {
-  const data = Object.fromEntries(await request.formData());
-  const { email, code } = data;
-
-  const client = new ServerClient(fetch);
+async function code({
+  request,
+  locals: {
+    session: { client },
+  },
+}) {
+  const { email, code } = Object.fromEntries(await request.formData());
   const { response, content, errors } = await client.registration.check(
     email,
     code,
   );
-
   if (!response.ok) {
     return fail(400, { email, step: "code", errors });
   }
@@ -43,21 +44,16 @@ async function code({ request, fetch }) {
  * Create a user with given information. If successfully created,
  * sign them in and redirect to homepage.
  */
-async function user({ request, fetch, locals }) {
-  const data = await request.formData();
-  const payload = Object.fromEntries(data);
-
-  const client = new ServerClient(fetch);
-  const { response, content, errors } = await client.users.create(payload);
-
+async function user({ request, locals: { session } }) {
+  const payload = Object.fromEntries(await request.formData());
+  const { response, content, errors } =
+    await session.client.users.create(payload);
   if (!response.ok) {
     return fail(400, { data: payload, step: "user", errors });
   }
-
   // User created, log-in the user and redirect.
-  const session = locals.session;
-  session.delete("verifier");
-  session.set("ident", content.auth);
+  session.flush();
+  session.ident = content.auth;
   session.commit();
   return redirect(302, "/");
 }
