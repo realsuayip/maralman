@@ -71,17 +71,17 @@ const AnonymousUser = { is_authenticated: false };
 
 class Session {
   // Store session data in cookies in an encrypted manner.
-  constructor(cookies, fetch) {
-    this.cookies = cookies;
+  constructor(event) {
+    this.cookies = event.cookies;
     this.data = {};
 
-    const value = cookies.get(AUTH_SESSION_COOKIE);
+    const value = this.cookies.get(AUTH_SESSION_COOKIE);
     if (value) {
       const contents = aes.decrypt(value);
       this.data = JSON.parse(contents);
     }
 
-    this.client = new ServerClient(fetch, this.ident?.access_token);
+    this.client = new ServerClient(event.fetch, this.ident?.access_token);
   }
 
   get ident() {
@@ -145,6 +145,8 @@ class Session {
           return await this.getUser();
         }
       } else {
+        // TODO: If this block is reached via a form, errors are not
+        //  propagated properly. Maybe redirect to root?
         error(errors.status, { message: errors.messages });
       }
     }
