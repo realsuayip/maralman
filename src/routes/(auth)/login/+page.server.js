@@ -11,10 +11,7 @@ export const load = async ({ locals, url }) => {
   if (code && verifier) {
     const { ok, content } = await auth.getAuthorizationTokens(code, verifier);
     if (ok) {
-      session.delete("verifier");
-      session.set("ident", content);
-      session.commit();
-      redirect(302, "/");
+      return session.login(content);
     }
     return { ok, content };
   }

@@ -1,4 +1,4 @@
-import { redirect, fail } from "@sveltejs/kit";
+import { fail } from "@sveltejs/kit";
 
 /**
  * Sends a confirmation code to given email. This code
@@ -52,10 +52,7 @@ async function user({ request, locals: { session } }) {
     return fail(400, { data: payload, step: "user", errors });
   }
   // User created, log-in the user and redirect.
-  session.flush();
-  session.ident = content.auth;
-  session.commit();
-  return redirect(302, "/");
+  return session.login(content.auth);
 }
 
 /** @type {import("./$types").Actions} */
