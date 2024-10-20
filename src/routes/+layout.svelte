@@ -8,15 +8,9 @@
   import UserPill from "$lib/components/UserPill.svelte";
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
   import Spinner from "$lib/components/Spinner.svelte";
-  /**
-   * @typedef {Object} Props
-   * @property {import('svelte').Snippet} [children]
-   */
 
-  /** @type {Props} */
-  let { children } = $props();
-
-  let user = $derived($page.data.user);
+  const { children, data } = $props();
+  const user = $derived(data.user);
 </script>
 
 {#if matchRoute($page.route, "auth") || !user.is_authenticated}

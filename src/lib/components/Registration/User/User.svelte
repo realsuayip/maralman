@@ -3,24 +3,15 @@
   import Primary from "$lib/components/Registration/User/Primary.svelte";
   import Password from "$lib/components/Registration/User/Password.svelte";
   import Personal from "$lib/components/Registration/User/Personal.svelte";
-  import { writable } from "svelte/store";
-  import { propagateFieldErrors } from "$lib/forms.js";
 
-  /**
-   * @typedef {Object} Props
-   * @property {any} form
-   */
-
-  /** @type {Props} */
   let { form } = $props();
 
-  let previousStep = $state(),
-    formElement = $state();
   let step = $state("primary");
+  let previousStep = $state();
+  let formElement = $state();
 
-  const fields = writable({ ...form?.data });
-  const errors = writable(form?.errors?.fieldErrors);
-  propagateFieldErrors(errors, fields);
+  let fields = $state(form?.data || {});
+  const errors = form?.errors?.fieldErrors;
 
   // List of field names, assigned to relevant steps. Used
   // to render relevant step when errors appear in one of them.
@@ -29,8 +20,9 @@
     password: ["password", "password1"],
     personal: ["birth_date", "gender", "language", "understand"],
   };
-  if ($errors) {
-    const keys = Object.keys($errors);
+
+  if (errors) {
+    const keys = Object.keys(errors);
     for (const [stepName, fieldNames] of Object.entries(steps)) {
       if (fieldNames.some((n) => keys.includes(n))) {
         step = stepName;
@@ -63,6 +55,6 @@
   {/if}
 
   {#each Object.values(steps).flat(1) as name}
-    <input type="hidden" {name} value={$fields[name] || ""} />
+    <input type="hidden" {name} value={fields[name] || ""} />
   {/each}
 </form>

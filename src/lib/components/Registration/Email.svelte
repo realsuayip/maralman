@@ -1,18 +1,8 @@
 <script>
-  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
-  import { writable } from "svelte/store";
   import Alert from "$lib/components/Alert.svelte";
+  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
-  /**
-   * @typedef {Object} Props
-   * @property {any} form
-   */
-
-  /** @type {Props} */
-  let { form } = $props();
-
-  const fields = writable({ email: form?.email });
-  const errors = writable(form?.errors?.fieldErrors);
+  const { form } = $props();
 </script>
 
 <header>
@@ -25,7 +15,7 @@
     <label for="registration-email">Email address</label>
     <!-- svelte-ignore a11y_autofocus -->
     <input
-      bind:value={$fields.email}
+      value={form?.email}
       id="registration-email"
       type="email"
       name="email"
@@ -35,7 +25,7 @@
       autofocus
       required
     />
-    <ErrorText of="email" {errors} />
+    <ErrorText of="email" errors={form?.errors?.fieldErrors} />
     <small class="text-secondary">
       A confirmation code will be sent to this email.
     </small>

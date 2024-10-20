@@ -1,11 +1,8 @@
 <script>
-  import { run } from "svelte/legacy";
-
   import { Mail16 } from "svelte-octicons";
   import { page } from "$app/stores";
   import { writable } from "svelte/store";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
-  import { propagateFieldErrors } from "$lib/forms.js";
   import Alert from "$lib/components/Alert.svelte";
   import { enhance } from "$app/forms";
   import Spinner from "$lib/components/Spinner.svelte";
@@ -15,9 +12,6 @@
   let step = $derived($page.form?.step || "send");
   let fields = $derived(writable({ email: $page.form?.email }));
   let errors = $derived(writable($page.form?.errors?.fieldErrors));
-  run(() => {
-    propagateFieldErrors(errors, fields);
-  });
 </script>
 
 <form

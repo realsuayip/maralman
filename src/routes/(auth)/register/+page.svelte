@@ -3,12 +3,6 @@
   import Code from "$lib/components/Registration/Code.svelte";
   import User from "$lib/components/Registration/User/User.svelte";
 
-  /**
-   * @typedef {Object} Props
-   * @property {any} form
-   */
-
-  /** @type {Props} */
   let { form } = $props();
 </script>
 

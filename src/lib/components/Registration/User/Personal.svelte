@@ -2,14 +2,6 @@
   import { fly } from "svelte/transition";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
-  /**
-   * @typedef {Object} Props
-   * @property {any} setStep
-   * @property {any} fields
-   * @property {any} errors
-   */
-
-  /** @type {Props} */
   let { setStep, fields, errors } = $props();
 </script>
 
@@ -22,7 +14,7 @@
   <div class="input-group">
     <label for="birth_date">Birth date</label>
     <input
-      bind:value={$fields.birth_date}
+      bind:value={fields.birth_date}
       type="date"
       id="birth_date"
       required
@@ -32,7 +24,7 @@
 
   <div class="input-group">
     <label for="gender">Gender</label>
-    <select bind:value={$fields.gender} id="gender">
+    <select bind:value={fields.gender} id="gender">
       <option value="unspecified" selected>Unspecified</option>
       <option value="male">Male</option>
       <option value="female">Female</option>
@@ -43,7 +35,7 @@
 
   <div class="input-group">
     <label for="language">Language</label>
-    <select bind:value={$fields.language} id="language">
+    <select bind:value={fields.language} id="language">
       <option value="en" selected>English</option>
       <option value="tr">Turkish</option>
     </select>
@@ -52,7 +44,7 @@
 
   <div>
     <input
-      bind:checked={$fields.understand}
+      bind:checked={fields.understand}
       type="checkbox"
       id="understand"
       required

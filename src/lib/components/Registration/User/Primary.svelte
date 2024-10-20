@@ -2,14 +2,6 @@
   import { fly } from "svelte/transition";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
-  /**
-   * @typedef {Object} Props
-   * @property {any} setStep
-   * @property {any} fields
-   * @property {any} errors
-   */
-
-  /** @type {Props} */
   let { setStep, fields, errors } = $props();
 </script>
 
@@ -19,7 +11,7 @@
   <div class="input-group">
     <label for="username">Username</label>
     <input
-      bind:value={$fields.username}
+      bind:value={fields.username}
       type="text"
       id="username"
       minlength="3"
@@ -35,7 +27,7 @@
   <div class="input-group">
     <label for="display_name">Display name</label>
     <input
-      bind:value={$fields.display_name}
+      bind:value={fields.display_name}
       type="text"
       id="display_name"
       maxlength="32"
@@ -46,8 +38,8 @@
 
   <div class="input-group">
     <small class="text-secondary">
-      <strong>{$fields.email}</strong> will be used as your email. If you want
-      to use some other email,
+      <strong>{fields.email}</strong> will be used as your email. If you want to
+      use some other email,
       <a href="/register">please click here.</a>
     </small>
     <ErrorText of="email" {errors} />

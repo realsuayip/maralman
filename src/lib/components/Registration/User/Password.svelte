@@ -3,19 +3,10 @@
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
   let confirmation = $state();
-  /**
-   * @typedef {Object} Props
-   * @property {any} previousStep
-   * @property {any} setStep
-   * @property {any} fields
-   * @property {any} errors
-   */
-
-  /** @type {Props} */
   let { previousStep, setStep, fields, errors } = $props();
 
   function checkPasswordMatch() {
-    if ($fields.password !== $fields.password1) {
+    if (fields.password !== fields.password1) {
       confirmation.setCustomValidity("Passwords did not match.");
     } else {
       confirmation.setCustomValidity("");
@@ -34,7 +25,7 @@
   <div class="input-group">
     <label for="password">Password</label>
     <input
-      bind:value={$fields.password}
+      bind:value={fields.password}
       type="password"
       id="password"
       minlength="8"
@@ -56,7 +47,7 @@
   <div class="input-group">
     <label for="password1">Password (again)</label>
     <input
-      bind:value={$fields.password1}
+      bind:value={fields.password1}
       bind:this={confirmation}
       type="password"
       id="password1"

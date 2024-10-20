@@ -1,14 +1,16 @@
 <script>
-  import { page } from "$app/stores";
+  const { data } = $props();
+  const user = $derived(data.user);
+  const session = $derived(data.session);
 </script>
 
 <svelte:head>
   <title>Home</title>
 </svelte:head>
 
-{#if $page.data.user.is_authenticated}
-  <pre>{JSON.stringify($page.data.user, undefined, 4)}</pre>
-  <pre>{JSON.stringify($page.data.session.ident, undefined, 4)}</pre>
+{#if user.is_authenticated}
+  <pre>{JSON.stringify(user, undefined, 4)}</pre>
+  <pre>{JSON.stringify(session.ident, undefined, 4)}</pre>
 {:else}
   <header>
     <h1>Sign in</h1>
