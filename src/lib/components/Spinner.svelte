@@ -1,7 +1,12 @@
+<script>
+  /** @type {{ [key: string]: any }} */
+  let { ...props } = $props();
+</script>
+
 <!--Copyright (c) 2016 Jianqiu Xiao-->
 <!--https://github.com/swordray/ispinner-->
 
-<div aria-busy="true" aria-live="polite" class="spinner {$$props.class}">
+<div aria-busy="true" aria-live="polite" class="spinner {props.class}">
   <div class="blade"></div>
   <div class="blade"></div>
   <div class="blade"></div>

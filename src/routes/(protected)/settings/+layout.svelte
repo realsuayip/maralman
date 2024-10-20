@@ -1,6 +1,13 @@
 <script>
   import { Person24, Key24, Mail24, Lock24 } from "svelte-octicons";
   import { page } from "$app/stores";
+  /**
+   * @typedef {Object} Props
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { children } = $props();
 </script>
 
 <div class="flex-row gap-200">
@@ -21,7 +28,7 @@
     </ul>
   </nav>
 
-  <div class="content"><slot /></div>
+  <div class="content">{@render children?.()}</div>
 </div>
 
 <style>

@@ -3,11 +3,11 @@
   import { Calendar16, Link16, Lock16 } from "svelte-octicons";
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
 
-  $: ({ profile } = $page.data);
-  $: joined = new Date(profile.date_joined).toLocaleDateString("en-US", {
+  let { profile } = $derived($page.data);
+  let joined = $derived(new Date(profile.date_joined).toLocaleDateString("en-US", {
     month: "long",
     year: "numeric",
-  });
+  }));
 </script>
 
 <section class="flex-row items-center gap-400">

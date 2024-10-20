@@ -2,8 +2,22 @@
   import { fly } from "svelte/transition";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
-  let confirmation;
-  export let previousStep, setStep, fields, errors;
+  let confirmation = $state();
+  /**
+   * @typedef {Object} Props
+   * @property {any} previousStep
+   * @property {any} setStep
+   * @property {any} fields
+   * @property {any} errors
+   */
+
+  /** @type {Props} */
+  let {
+    previousStep,
+    setStep,
+    fields,
+    errors
+  } = $props();
 
   function checkPasswordMatch() {
     if ($fields.password !== $fields.password1) {
@@ -60,7 +74,7 @@
   <button
     type="button"
     class="btn"
-    on:click={() => {
+    onclick={() => {
       checkPasswordMatch() && setStep("personal", true);
     }}
   >
@@ -69,7 +83,7 @@
   <button
     type="button"
     class="btn secondary muted"
-    on:click={() => {
+    onclick={() => {
       setStep("primary");
     }}
   >

@@ -6,10 +6,16 @@
   import { writable } from "svelte/store";
   import { propagateFieldErrors } from "$lib/forms.js";
 
-  export let form;
+  /**
+   * @typedef {Object} Props
+   * @property {any} form
+   */
 
-  let previousStep, formElement;
-  let step = "primary";
+  /** @type {Props} */
+  let { form } = $props();
+
+  let previousStep = $state(), formElement = $state();
+  let step = $state("primary");
 
   const fields = writable({ ...form?.data });
   const errors = writable(form?.errors?.fieldErrors);

@@ -1,4 +1,6 @@
 <script>
+  import { run } from 'svelte/legacy';
+
   import { Mail16 } from "svelte-octicons";
   import { page } from "$app/stores";
   import { writable } from "svelte/store";
@@ -8,12 +10,14 @@
   import { enhance } from "$app/forms";
   import Spinner from "$lib/components/Spinner.svelte";
 
-  let loading = false;
+  let loading = $state(false);
 
-  $: step = $page.form?.step || "send";
-  $: fields = writable({ email: $page.form?.email });
-  $: errors = writable($page.form?.errors?.fieldErrors);
-  $: propagateFieldErrors(errors, fields);
+  let step = $derived($page.form?.step || "send");
+  let fields = $derived(writable({ email: $page.form?.email }));
+  let errors = $derived(writable($page.form?.errors?.fieldErrors));
+  run(() => {
+    propagateFieldErrors(errors, fields);
+  });
 </script>
 
 <form

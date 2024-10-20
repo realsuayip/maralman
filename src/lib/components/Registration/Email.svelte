@@ -3,7 +3,13 @@
   import { writable } from "svelte/store";
   import Alert from "$lib/components/Alert.svelte";
 
-  export let form;
+  /**
+   * @typedef {Object} Props
+   * @property {any} form
+   */
+
+  /** @type {Props} */
+  let { form } = $props();
 
   const fields = writable({ email: form?.email });
   const errors = writable(form?.errors?.fieldErrors);
@@ -17,7 +23,7 @@
 <form class="subject" method="post" action="?/email">
   <div class="input-group">
     <label for="registration-email">Email address</label>
-    <!-- svelte-ignore a11y-autofocus -->
+    <!-- svelte-ignore a11y_autofocus -->
     <input
       bind:value={$fields.email}
       id="registration-email"

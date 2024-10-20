@@ -2,7 +2,15 @@
   import { fly } from "svelte/transition";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
 
-  export let setStep, fields, errors;
+  /**
+   * @typedef {Object} Props
+   * @property {any} setStep
+   * @property {any} fields
+   * @property {any} errors
+   */
+
+  /** @type {Props} */
+  let { setStep, fields, errors } = $props();
 </script>
 
 <div class="subject" in:fly={{ x: -300 }}>
@@ -48,7 +56,7 @@
   <button
     type="button"
     class="btn"
-    on:click={() => {
+    onclick={() => {
       setStep("password", true);
     }}
   >

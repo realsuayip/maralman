@@ -1,12 +1,17 @@
 <script>
-  let classes;
-  let labelFor;
-  export { classes as class };
-  export { labelFor as for };
+  /**
+   * @typedef {Object} Props
+   * @property {any} class
+   * @property {any} for
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { class: classes, for: labelFor, children } = $props();
 </script>
 
 <label class="toggle {classes}" for={labelFor}>
-  <slot />
+  {@render children?.()}
   <span class="toggle-display" hidden></span>
 </label>
 

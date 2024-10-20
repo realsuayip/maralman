@@ -10,16 +10,16 @@
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^3.1.1",
-    "@sveltejs/kit": "^2.4.3",
-    "@sveltejs/vite-plugin-svelte": "^3.0.1",
+    "@sveltejs/kit": "^2.5.27",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-svelte": "^2.35.1",
+    "eslint-plugin-svelte": "^2.45.1",
     "prettier": "^3.2.4",
-    "prettier-plugin-svelte": "^3.1.2",
-    "svelte": "^4.2.9",
+    "prettier-plugin-svelte": "^3.2.6",
+    "svelte": "^5.0.0",
     "svelte-octicons": "^18.7.1",
-    "vite": "^5.0.12"
+    "vite": "^5.4.4"
   },
   "type": "module"
 }

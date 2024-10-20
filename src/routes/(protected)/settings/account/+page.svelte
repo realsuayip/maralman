@@ -8,9 +8,9 @@
   import Spinner from "$lib/components/Spinner.svelte";
   import { Globe16, Lock16 } from "svelte-octicons";
 
-  let loading = false;
+  let loading = $state(false);
 
-  $: user = $page.form?.user || $page.data.user;
+  let user = $derived($page.form?.user || $page.data.user);
   const errors = derived(page, ($page) => $page.form?.errors?.fieldErrors);
 </script>
 
@@ -56,7 +56,7 @@
             value={user.description}
             id="description"
             rows="5"
-          />
+></textarea>
           <ErrorText of="description" {errors} />
         </div>
       </div>

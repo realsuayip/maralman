@@ -1,10 +1,16 @@
 <script>
   import placeholder from "$lib/assets/placeholder.svg";
 
-  export let user;
+  /**
+   * @typedef {Object} Props
+   * @property {any} user
+   */
 
-  $: alt = `Profile picture of ${user.display_name}`;
-  $: src = user.profile_picture || placeholder;
+  /** @type {Props} */
+  let { user } = $props();
+
+  let alt = $derived(`Profile picture of ${user.display_name}`);
+  let src = $derived(user.profile_picture || placeholder);
 </script>
 
 <div><img {src} {alt} /></div>

@@ -6,9 +6,9 @@
   import Spinner from "$lib/components/Spinner.svelte";
   import Alert from "$lib/components/Alert.svelte";
 
-  let loading;
+  let loading = $state();
 
-  $: user = $page.form?.user || $page.data.user;
+  let user = $derived($page.form?.user || $page.data.user);
 </script>
 
 <form

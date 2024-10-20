@@ -3,7 +3,13 @@
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
   import Alert from "$lib/components/Alert.svelte";
 
-  export let form;
+  /**
+   * @typedef {Object} Props
+   * @property {any} form
+   */
+
+  /** @type {Props} */
+  let { form } = $props();
 
   const fields = writable({ email: form?.email });
   const errors = writable(form?.errors?.fieldErrors);
@@ -18,27 +24,30 @@
   <p role="alert" class="banner">A new confirmation code has been sent.</p>
 {/if}
 
-<form class="subject" method="post" action="?/code">
+<div class="subject">
   <p>
     Please enter the six-digit confirmation code we just sent you via the
     following email:
   </p>
   <strong style="font-size: 2rem">{$fields.email}</strong>
   <small><a target="_self" href="/register">Use different email</a></small>
-  <div class="input-group">
-    <label for="code">Code</label>
-    <input
-      id="code"
-      type="number"
-      name="code"
-      min="9999"
-      max="999999"
-      required
-    />
-    <ErrorText of="code" {errors} />
+
+  <form method="post" action="?/code" class="flex-col gap-200">
+    <div class="input-group">
+      <label for="code">Code</label>
+      <input
+        id="code"
+        type="number"
+        name="code"
+        min="9999"
+        max="999999"
+        required
+      />
+      <ErrorText of="code" {errors} />
+    </div>
     <input type="hidden" name="email" value={$fields.email} />
-  </div>
-  <button type="submit" class="btn">Continue</button>
+    <button class="btn" formaction="?/code">Continue</button>
+  </form>
 
   <form method="post" action="?/email">
     <input type="hidden" name="email" value={$fields.email} />
@@ -47,4 +56,4 @@
       Resend confirmation code
     </button>
   </form>
-</form>
+</div>

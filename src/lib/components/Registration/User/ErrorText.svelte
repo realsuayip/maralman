@@ -1,5 +1,12 @@
 <script>
-  export let of, errors;
+  /**
+   * @typedef {Object} Props
+   * @property {any} of
+   * @property {any} errors
+   */
+
+  /** @type {Props} */
+  let { of, errors } = $props();
 </script>
 
 {#if $errors && Object.prototype.hasOwnProperty.call($errors, of) && Array.isArray($errors[of])}

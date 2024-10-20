@@ -8,8 +8,15 @@
   import UserPill from "$lib/components/UserPill.svelte";
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
   import Spinner from "$lib/components/Spinner.svelte";
+  /**
+   * @typedef {Object} Props
+   * @property {import('svelte').Snippet} [children]
+   */
 
-  $: user = $page.data.user;
+  /** @type {Props} */
+  let { children } = $props();
+
+  let user = $derived($page.data.user);
 </script>
 
 {#if matchRoute($page.route, "auth") || !user.is_authenticated}
@@ -21,7 +28,7 @@
             <Spinner />
           </div>
         {:else}
-          <slot />
+          {@render children?.()}
         {/if}
       </main>
       <Footer />
@@ -47,7 +54,7 @@
     </nav>
     <div class="content">
       <main>
-        <slot />
+        {@render children?.()}
       </main>
       <aside>
         <UserPill {user} />

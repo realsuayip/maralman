@@ -1,7 +1,13 @@
 <script>
   import { blur } from "svelte/transition";
 
-  export let messages;
+  /**
+   * @typedef {Object} Props
+   * @property {any} messages
+   */
+
+  /** @type {Props} */
+  let { messages } = $props();
 </script>
 
 {#each messages || [] as message}

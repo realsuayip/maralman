@@ -1,7 +1,13 @@
 <script>
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
 
-  export let user;
+  /**
+   * @typedef {Object} Props
+   * @property {any} user
+   */
+
+  /** @type {Props} */
+  let { user } = $props();
 </script>
 
 <div class="pill">
