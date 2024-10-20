@@ -12,12 +12,7 @@
    */
 
   /** @type {Props} */
-  let {
-    previousStep,
-    setStep,
-    fields,
-    errors
-  } = $props();
+  let { previousStep, setStep, fields, errors } = $props();
 
   function checkPasswordMatch() {
     if ($fields.password !== $fields.password1) {

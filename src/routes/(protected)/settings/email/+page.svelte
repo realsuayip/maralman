@@ -1,5 +1,5 @@
 <script>
-  import { run } from 'svelte/legacy';
+  import { run } from "svelte/legacy";
 
   import { Mail16 } from "svelte-octicons";
   import { page } from "$app/stores";

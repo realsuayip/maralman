@@ -14,7 +14,8 @@
   /** @type {Props} */
   let { form } = $props();
 
-  let previousStep = $state(), formElement = $state();
+  let previousStep = $state(),
+    formElement = $state();
   let step = $state("primary");
 
   const fields = writable({ ...form?.data });

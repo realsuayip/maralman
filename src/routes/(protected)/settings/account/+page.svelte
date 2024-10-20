@@ -56,7 +56,7 @@
             value={user.description}
             id="description"
             rows="5"
-></textarea>
+          ></textarea>
           <ErrorText of="description" {errors} />
         </div>
       </div>
