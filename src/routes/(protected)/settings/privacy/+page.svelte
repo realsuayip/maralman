@@ -2,13 +2,14 @@
   import { Lock16, ArrowRight16 } from "svelte-octicons";
   import Toggle from "$lib/components/Toggle.svelte";
   import { enhance } from "$app/forms";
-  import { page } from "$app/stores";
   import Alert from "$lib/components/Alert.svelte";
   import { formHandler } from "$lib/forms.svelte.js";
   import Button from "$lib/components/Button.svelte";
 
   const handler = formHandler(false);
-  const user = $derived($page.form?.user || $page.data.user);
+
+  const { form, data } = $props();
+  const user = $derived(form?.user || data.user);
 </script>
 
 <form method="post" class="flex-col gap-150" use:enhance={handler.enhance}>
@@ -22,7 +23,7 @@
     <small>See the list of blocked users and manage them.</small>
   </div>
 
-  <Alert messages={$page.form?.errors?.messages} />
+  <Alert messages={form?.errors?.messages} />
 
   <div class="preference">
     <Toggle class="space-between" for="is_private">

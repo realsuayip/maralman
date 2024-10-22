@@ -2,7 +2,6 @@
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
   import Alert from "$lib/components/Alert.svelte";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
-  import { page } from "$app/stores";
   import { enhance } from "$app/forms";
   import { Globe16, Lock16 } from "svelte-octicons";
   import { formHandler } from "$lib/forms.svelte.js";
@@ -10,14 +9,15 @@
 
   const handler = formHandler(false);
 
-  const user = $derived($page.form?.user || $page.data.user);
-  const errors = $derived($page.form?.errors?.fieldErrors);
+  const { form, data } = $props();
+  const user = $derived(form?.user || data.user);
+  const errors = $derived(form?.errors?.fieldErrors);
 </script>
 
 <!-- TODO: Add relevant HTML input attributes, such as 'required'-->
 <!-- TODO: Add success message & prettier loading-->
 <form method="post" class="wrapper" use:enhance={handler.enhance}>
-  <Alert messages={$page.form?.errors?.messages} />
+  <Alert messages={form?.errors?.messages} />
 
   <div class="wrapper" aria-labelledby="primary-information">
     <h2 style="margin-top:0;" id="primary-information">

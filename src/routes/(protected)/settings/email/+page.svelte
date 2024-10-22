@@ -1,6 +1,5 @@
 <script>
   import { Mail16 } from "svelte-octicons";
-  import { page } from "$app/stores";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
   import Alert from "$lib/components/Alert.svelte";
   import { enhance } from "$app/forms";
@@ -8,9 +7,11 @@
   import Button from "$lib/components/Button.svelte";
 
   const handler = formHandler(false);
-  const step = $derived($page.form?.step || "send");
-  const email = $derived($page.form?.email);
-  const errors = $derived($page.form?.errors?.fieldErrors);
+
+  const { form, data } = $props();
+  const step = $derived(form?.step || "send");
+  const email = $derived(form?.email);
+  const errors = $derived(form?.errors?.fieldErrors);
 </script>
 
 <form
@@ -24,7 +25,7 @@
     Change Your Email
   </h1>
 
-  <Alert messages={$page.form?.errors?.messages} />
+  <Alert messages={form?.errors?.messages} />
 
   {#if step === "send"}
     <div class="banner muted flex-col gap-125">
@@ -33,7 +34,7 @@
         receive a confirmation code. Once you enter the code, your email will be
         changed.
       </p>
-      <p>Your current email: <strong>{$page.data.user.email}</strong></p>
+      <p>Your current email: <strong>{data.user.email}</strong></p>
     </div>
 
     <div class="input-group">
