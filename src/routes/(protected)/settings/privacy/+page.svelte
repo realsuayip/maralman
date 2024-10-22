@@ -3,25 +3,15 @@
   import Toggle from "$lib/components/Toggle.svelte";
   import { enhance } from "$app/forms";
   import { page } from "$app/stores";
-  import Spinner from "$lib/components/Spinner.svelte";
   import Alert from "$lib/components/Alert.svelte";
+  import { formHandler } from "$lib/forms.svelte.js";
+  import Button from "$lib/components/Button.svelte";
 
-  let loading = $state();
-
-  let user = $derived($page.form?.user || $page.data.user);
+  const handler = formHandler(false);
+  const user = $derived($page.form?.user || $page.data.user);
 </script>
 
-<form
-  method="post"
-  class="flex-col gap-150"
-  use:enhance={() => {
-    loading = true;
-    return async ({ update }) => {
-      await update({ reset: false });
-      loading = false;
-    };
-  }}
->
+<form method="post" class="flex-col gap-150" use:enhance={handler.enhance}>
   <h1 class="title flex-row items-center gap-75"><Lock16 />Privacy</h1>
 
   <div class="preference flex-col gap-100">
@@ -85,10 +75,7 @@
       messages.
     </small>
   </div>
-
-  <button class="btn primary" class:secondary={loading} disabled={loading}>
-    {#if loading}<Spinner />{:else}Save{/if}
-  </button>
+  <Button class="btn primary" loading={handler.loading}>Save</Button>
   <a class="btn secondary muted" href="/settings/privacy/deactivate/">
     <small class="text-secondary">Deactivate your account</small>
   </a>

@@ -1,4 +1,4 @@
-export function formHandler() {
+export function formHandler(reset = true) {
   let loading = $state(false);
   return {
     get loading() {
@@ -7,7 +7,7 @@ export function formHandler() {
     enhance: () => {
       loading = true;
       return async ({ update }) => {
-        await update();
+        await update({ reset });
         loading = false;
       };
     },

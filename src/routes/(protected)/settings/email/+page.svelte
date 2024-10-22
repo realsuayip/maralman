@@ -1,30 +1,23 @@
 <script>
   import { Mail16 } from "svelte-octicons";
   import { page } from "$app/stores";
-  import { writable } from "svelte/store";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
   import Alert from "$lib/components/Alert.svelte";
   import { enhance } from "$app/forms";
-  import Spinner from "$lib/components/Spinner.svelte";
+  import { formHandler } from "$lib/forms.svelte.js";
+  import Button from "$lib/components/Button.svelte";
 
-  let loading = $state(false);
-
-  let step = $derived($page.form?.step || "send");
-  let fields = $derived(writable({ email: $page.form?.email }));
-  let errors = $derived(writable($page.form?.errors?.fieldErrors));
+  const handler = formHandler(false);
+  const step = $derived($page.form?.step || "send");
+  const email = $derived($page.form?.email);
+  const errors = $derived($page.form?.errors?.fieldErrors);
 </script>
 
 <form
   method="post"
   action="?/{step}"
   class="flex-col gap-175"
-  use:enhance={() => {
-    loading = true;
-    return async ({ update }) => {
-      await update({ reset: false });
-      loading = false;
-    };
-  }}
+  use:enhance={handler.enhance}
 >
   <h1 class="title flex-row items-center gap-75">
     <Mail16 />
@@ -46,7 +39,6 @@
     <div class="input-group">
       <label for="new-email">Email</label>
       <input
-        bind:value={$fields.email}
         id="new-email"
         type="email"
         name="email"
@@ -61,7 +53,7 @@
     <div class="banner muted flex-col gap-125">
       Please enter the six-digit confirmation code we just sent to your new
       email. Once you enter the code, your email will be changed to:
-      <strong>{$fields.email}</strong>
+      <strong>{email}</strong>
     </div>
 
     <div class="input-group">
@@ -74,19 +66,17 @@
         max="999999"
         required
       />
-      <input type="hidden" name="email" value={$fields.email} />
+      <input type="hidden" name="email" value={email} />
       <ErrorText of="code" {errors} />
     </div>
   {:else if step === "success"}
     <div class="banner flex-col gap-125">
       Your email has been changed. Your new email is:
-      <strong>{$fields.email}</strong>
+      <strong>{email}</strong>
     </div>
   {/if}
 
   {#if step !== "success"}
-    <button class="btn primary" class:secondary={loading} disabled={loading}>
-      {#if loading}<Spinner />{:else}Continue{/if}
-    </button>
+    <Button class="btn primary" loading={handler.loading}>Continue</Button>
   {/if}
 </form>

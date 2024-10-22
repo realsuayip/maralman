@@ -3,30 +3,20 @@
   import Alert from "$lib/components/Alert.svelte";
   import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
   import { page } from "$app/stores";
-  import { derived } from "svelte/store";
   import { enhance } from "$app/forms";
-  import Spinner from "$lib/components/Spinner.svelte";
   import { Globe16, Lock16 } from "svelte-octicons";
+  import { formHandler } from "$lib/forms.svelte.js";
+  import Button from "$lib/components/Button.svelte";
 
-  let loading = $state(false);
+  const handler = formHandler(false);
 
-  let user = $derived($page.form?.user || $page.data.user);
-  const errors = derived(page, ($page) => $page.form?.errors?.fieldErrors);
+  const user = $derived($page.form?.user || $page.data.user);
+  const errors = $derived($page.form?.errors?.fieldErrors);
 </script>
 
 <!-- TODO: Add relevant HTML input attributes, such as 'required'-->
 <!-- TODO: Add success message & prettier loading-->
-<form
-  method="post"
-  class="wrapper"
-  use:enhance={() => {
-    loading = true;
-    return async ({ update }) => {
-      await update({ reset: false });
-      loading = false;
-    };
-  }}
->
+<form method="post" class="wrapper" use:enhance={handler.enhance}>
   <Alert messages={$page.form?.errors?.messages} />
 
   <div class="wrapper" aria-labelledby="primary-information">
@@ -120,10 +110,7 @@
       <ErrorText of="gender" {errors} />
     </div>
   </div>
-
-  <button class="btn primary" class:secondary={loading} disabled={loading}>
-    {#if loading}<Spinner />{:else}Save{/if}
-  </button>
+  <Button class="btn primary" loading={handler.loading}>Save</Button>
 </form>
 
 <style>
@@ -147,7 +134,7 @@
     gap: 1.25rem;
   }
 
-  button {
+  :global(button) {
     margin-top: 0.5rem;
   }
 </style>
