@@ -18,10 +18,13 @@
       Welcome to asu! To continue, please sign in or create a new account.
     </small>
   </header>
-  <div class="subject">
+  <div class="subject gap-125">
     <form action="/login">
       <button class="btn primary">Sign in</button>
     </form>
     <a href="/register" class="btn secondary muted">Create a new account</a>
+    <div>
+      <a style="font-size: 1.25rem" href="/password-reset">Forgot password?</a>
+    </div>
   </div>
 {/if}
