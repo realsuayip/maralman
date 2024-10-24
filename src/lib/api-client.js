@@ -15,6 +15,7 @@ export class Client {
     // Endpoints
     this.registration = new Registration(this);
     this.email = new Email(this);
+    this.passwordReset = new PasswordReset(this);
     this.users = new User(this);
   }
 
@@ -160,6 +161,10 @@ class Email extends Verification {
   type = "email";
 }
 
+class PasswordReset extends Verification {
+  type = "password-reset";
+}
+
 class User extends Endpoint {
   async create(payload) {
     return await this.client.post("users", payload);
@@ -175,5 +180,9 @@ class User extends Endpoint {
 
   async update(payload) {
     return this.client.patch("users/me", payload);
+  }
+
+  async passwordReset(payload) {
+    return this.client.patch("users/password-reset", payload);
   }
 }
