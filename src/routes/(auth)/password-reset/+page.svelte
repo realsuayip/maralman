@@ -11,14 +11,12 @@
   <title>Reset your password</title>
 </svelte:head>
 
-{#if form && form.step}
-  {#if form.step === "code"}
-    <Code {form} />
-  {:else if form.step === "password"}
-    <Password {form} />
-  {:else if form.step === "done"}
-    <Done />
-  {/if}
+{#if form?.step === "code"}
+  <Code {form} />
+{:else if form?.step === "password"}
+  <Password {form} />
+{:else if form?.step === "done"}
+  <Done />
 {:else}
   <Email {form} />
 {/if}
