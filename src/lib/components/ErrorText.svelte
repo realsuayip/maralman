@@ -3,7 +3,7 @@
 </script>
 
 {#if errors && Object.prototype.hasOwnProperty.call(errors, of) && Array.isArray(errors[of])}
-  {#each errors[of] as message}
-    <small class="text-danger">{message}</small>
+  {#each errors[of] as error}
+    <small class="text-danger">{error.message}</small>
   {/each}
 {/if}

@@ -1,5 +1,5 @@
 <script>
-  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
+  import ErrorText from "$lib/components/ErrorText.svelte";
   import Alert from "$lib/components/Alert.svelte";
 
   const { form } = $props();

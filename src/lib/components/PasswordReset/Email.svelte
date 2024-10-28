@@ -1,6 +1,6 @@
 <script>
   import Alert from "$lib/components/Alert.svelte";
-  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
+  import ErrorText from "$lib/components/ErrorText.svelte";
 
   const { form } = $props();
 </script>

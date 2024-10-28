@@ -1,6 +1,6 @@
 <script>
   import { fly } from "svelte/transition";
-  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
+  import ErrorText from "$lib/components/ErrorText.svelte";
 
   let { setStep, fields, errors } = $props();
 </script>

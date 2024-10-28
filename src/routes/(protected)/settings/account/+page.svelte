@@ -1,7 +1,7 @@
 <script>
   import ProfilePicture from "$lib/components/ProfilePicture.svelte";
   import Alert from "$lib/components/Alert.svelte";
-  import ErrorText from "$lib/components/Registration/User/ErrorText.svelte";
+  import ErrorText from "$lib/components/ErrorText.svelte";
   import { enhance } from "$app/forms";
   import { Globe16, Lock16 } from "svelte-octicons";
   import { formHandler } from "$lib/forms.svelte.js";
