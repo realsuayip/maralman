@@ -1,5 +1,5 @@
 <script>
-  import { Lock16, ArrowRight16 } from "svelte-octicons";
+  import { ArrowRight16 } from "svelte-octicons";
   import Toggle from "$lib/components/Toggle.svelte";
   import { enhance } from "$app/forms";
   import Alert from "$lib/components/Alert.svelte";
@@ -12,8 +12,8 @@
   const user = $derived(form?.user || data.user);
 </script>
 
-<form method="post" class="flex-col gap-150" use:enhance={handler.enhance}>
-  <h1 class="title flex-row items-center gap-75"><Lock16 />Privacy</h1>
+<form method="post" class="flex-col gap-175" use:enhance={handler.enhance}>
+  <h1 class="title">Privacy</h1>
 
   <div class="preference flex-col gap-100">
     <a href="/settings/privacy/blocked/" class="blocked gap-25">
@@ -76,7 +76,9 @@
       messages.
     </small>
   </div>
+
   <Button class="btn primary" loading={handler.loading}>Save</Button>
+
   <a class="btn secondary muted" href="/settings/privacy/deactivate/">
     <small class="text-secondary">Deactivate your account</small>
   </a>

@@ -1,5 +1,4 @@
 <script>
-  import { Mail16 } from "svelte-octicons";
   import ErrorText from "$lib/components/ErrorText.svelte";
   import Alert from "$lib/components/Alert.svelte";
   import { enhance } from "$app/forms";
@@ -20,10 +19,7 @@
   class="flex-col gap-175"
   use:enhance={handler.enhance}
 >
-  <h1 class="title flex-row items-center gap-75">
-    <Mail16 />
-    Change Your Email
-  </h1>
+  <h1 class="title flex-row items-center gap-75">Change Your Email</h1>
 
   <Alert messages={form?.errors?.messages} />
 

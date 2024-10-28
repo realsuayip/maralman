@@ -16,17 +16,25 @@
 
 <!-- TODO: Add relevant HTML input attributes, such as 'required'-->
 <!-- TODO: Add success message & prettier loading-->
-<form method="post" class="wrapper" use:enhance={handler.enhance}>
+<form method="post" class="flex-col gap-175" use:enhance={handler.enhance}>
   <Alert messages={form?.errors?.messages} />
 
-  <div class="wrapper" aria-labelledby="primary-information">
-    <h2 style="margin-top:0;" id="primary-information">
-      <Globe16 />Primary information
-    </h2>
+  <div class="flex-col gap-75">
+    <h1 class="title flex-row items-center gap-75" id="primary-information">
+      <Globe16 />Primary
+    </h1>
+    <small class="banner muted">
+      The information on your profile—such as your name, bio and profile
+      picture—is visible to all users, helping you connect and share who you
+      are.
+    </small>
+  </div>
 
+  <div class="input-cluster" aria-labelledby="primary-information">
     <div class="flex-row items-center gap-200">
       <ProfilePicture --margin="1rem" --size="150px" {user} />
-      <div class="wrapper">
+
+      <div class="input-cluster self">
         <div class="input-group">
           <label for="display_name">Display name</label>
           <input
@@ -71,9 +79,18 @@
     </div>
   </div>
 
-  <div class="wrapper" aria-labelledby="personal-information">
-    <h2 id="personal-information"><Lock16 />Personal information</h2>
+  <div class="flex-col gap-75">
+    <h1 class="title flex-row items-center gap-75" id="personal-information">
+      <Lock16 />Personal
+    </h1>
+    <small class="banner muted">
+      The personal information you provide here is private and will not be
+      visible to other users. This information helps us verify your account and
+      enhance your experience.
+    </small>
+  </div>
 
+  <div class="input-cluster" aria-labelledby="personal-information">
     <div class="input-group">
       <label for="birth_date">Birth date</label>
       <input
@@ -110,6 +127,7 @@
       <ErrorText of="gender" {errors} />
     </div>
   </div>
+
   <Button class="btn primary" loading={handler.loading}>Save</Button>
 </form>
 
@@ -117,24 +135,7 @@
   textarea {
     resize: none;
   }
-
-  h2 {
-    font-weight: 700;
-    font-size: 1.75rem;
-    margin: 1rem 0;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .wrapper {
-    display: flex;
+  .self {
     flex-grow: 1;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  :global(button) {
-    margin-top: 0.5rem;
   }
 </style>
