@@ -71,12 +71,3 @@
   </div>
   <button class="btn primary">Reset your password</button>
 </form>
-
-<style>
-  .password-help ul {
-    margin: 0;
-    padding: 0;
-    font-size: small;
-    list-style-position: inside;
-  }
-</style>
