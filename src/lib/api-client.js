@@ -185,4 +185,8 @@ class User extends Endpoint {
   async passwordReset(payload) {
     return this.client.patch("users/password-reset", payload);
   }
+
+  async passwordChange(payload) {
+    return this.client.patch("users/password-change", payload);
+  }
 }
