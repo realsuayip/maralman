@@ -189,4 +189,8 @@ class User extends Endpoint {
   async passwordChange(payload) {
     return this.client.patch("users/password-change", payload);
   }
+
+  async deactivate(payload) {
+    return this.client.post("users/deactivate", payload);
+  }
 }
