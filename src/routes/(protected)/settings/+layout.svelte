@@ -5,8 +5,9 @@
   let { children } = $props();
 </script>
 
-<div class="flex-row gap-200">
-  <nav>
+<div class="flex-row gap-100">
+  <nav class="flex-col gap-175">
+    <h1>Settings</h1>
     <ul>
       <li class:active={$page.url.pathname.includes("/settings/account/")}>
         <a href="/settings/account"><Person24 />Account</a>
@@ -32,33 +33,36 @@
     flex-grow: 1;
   }
 
+  nav {
+    padding-left: 2rem;
+  }
+
   nav > ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
   }
 
   nav > ul > li {
     transition: 0.3s;
     padding: 0;
-    border-right: 2px solid transparent;
   }
 
-  nav > ul > li.active {
-    border-right: 2px solid #0466ff;
+  nav > ul > li.active a,
+  nav > ul > li:hover a {
     background-color: var(--background-accent);
   }
 
   nav > ul > li > a {
-    padding: 1rem 3rem;
+    padding: 1rem 2rem;
     display: flex;
     align-items: center;
     gap: 1.6rem;
     color: var(--foreground);
     transition: background-color 0.3s ease;
-  }
-
-  nav > ul > li > a:hover {
-    background: var(--background-accent);
+    border-radius: 1rem;
   }
 </style>
